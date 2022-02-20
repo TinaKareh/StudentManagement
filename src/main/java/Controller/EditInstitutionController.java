@@ -69,7 +69,7 @@ public class EditInstitutionController extends HttpServlet {
         String institution = request.getParameter("institution");
         inst = institutionFacade.addInstitution(institution);
         if (inst == null) {
-            Institution stitution = new Institution();
+            Institution stitution = institutionFacade.find(Long.parseLong(request.getParameter("instId")));
             stitution.setInstitutionName(institution);
             institutionFacade.edit(stitution);
             response.sendRedirect(request.getContextPath() + "/view/institution");

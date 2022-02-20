@@ -72,20 +72,20 @@ public class EditStudentController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Student student = studentFacade.find(Long.parseLong(request.getParameter("student")));;
+        Student student = studentFacade.find(Long.parseLong(request.getParameter("student")));
         String inst = request.getParameter("institution");
-       // Course course = courseFacade.find(Long.parseLong(request.getParameter("course")));
+        // Course course = courseFacade.find(Long.parseLong(request.getParameter("course")));
         student.setFirstName(request.getParameter("fname"));
         student.setMiddleName(request.getParameter("lname"));
         student.setSurname(request.getParameter("uname"));
         student.setInstitution(facade.find(Long.parseLong(inst)));
-        response.sendRedirect(request.getContextPath() + "/view/students");
+        studentFacade.edit(student);
         String text = "You have successfully edited the student details";
         response.setContentType("text/plain");
         response.setCharacterEncoding("UTF-8");
         response.getWriter().write(text);
-        studentFacade.edit(student);
-       
+
+        response.sendRedirect(request.getContextPath() + "/view/students");
 
     }
 

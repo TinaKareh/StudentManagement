@@ -35,7 +35,8 @@
             </ul>
         </nav>
                 <div class="form-group">
-                    <a href="${pageContext.request.contextPath}/view/institution" class="btn btn-success btn-sm">Back</a>
+                    <a href="${pageContext.request.contextPath}/view/institution" class="btn btn-success btn-sm" style="position: absolute;
+    right: 20vw; width: 15%;">Back</a>
                 </div>
             <fieldset style="margin-right: 100px;" >
                 

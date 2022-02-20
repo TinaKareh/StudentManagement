@@ -18,55 +18,61 @@
     </head>
     <body>
         <div class="container" style="margin-top: 100px;">
-             <nav class="navbar navbar-expand-sm bg-success navbar-dark fixed-top">
-            <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/view/institution">Institution</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/view/students">Student</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/view/course">Course</a>
-                </li>
-<!--                <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Disabled</a>
-                </li>-->
-            </ul>
-        </nav>
-                        <fieldset style="margin-right: 200px;" >
-            <div class="card">
-                <form action="${pageContext.request.contextPath}/edit/course" method="POST">
+            <nav class="navbar navbar-expand-sm bg-success navbar-dark fixed-top">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/view/institution">Institution</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/view/students">Student</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/view/course">Course</a>
+                    </li>
+                    <!--                <li class="nav-item">
+                                        <a class="nav-link disabled" href="#">Disabled</a>
+                                    </li>-->
+                </ul>
+            </nav>
+            <div class="form-group">
+                <a href="${pageContext.request.contextPath}/view/course" class="btn btn-success btn-sm" style="position: absolute;
+                   right: 20vw; width: 15%;">Back</a>
+            </div>
+            <fieldset style="margin-right: 100px;" >
+                <legend style="font-size: 20px; font-weight: 600; margin-bottom:30px;">Edit Course</legend>
 
-                    <div class="card-header">
-                        <table>
-                            <tr>
-                                <td align="left"><b>Course</b></td>
-                                <td>${course.courseName}</td>
-                            </tr>
+                <div class="card">
+                    <form action="${pageContext.request.contextPath}/edit/course" method="POST">
 
-                        </table>
-                    </div>
-                    <div class="card-body">
-                        <div class="form-group">
+                        <div class="card-header">
+                            <table>
+                                <tr>
+                                    <td align="left"><b>Course</b></td>
+                                    <td>${course.courseName}</td>
+                                </tr>
+
+                            </table>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
                                 <label for="instId">Course ID</label><span style="color: #0069d9;">*</span>
                                 <input name="instId" class="form-control" type="text"  id="instId" value="${course.courseId}" required="">
                             </div>
-                        <div class="form-group">
-                            <label for="course">Course ID</label><span style="color: #0069d9;">*</span>
-                            <input name="course" class="form-control" type="text"  id="institution" value="${course.courseName}" required="">
-                        </div>
-                        <div class="card-footer"> 
+                            <div class="form-group">
+                                <label for="course">Course ID</label><span style="color: #0069d9;">*</span>
+                                <input name="course" class="form-control" type="text"  id="institution" value="${course.courseName}" required="">
+                            </div>
+                            <div class="card-footer"> 
                                 <button class="btn btn-success btn-sm"  type="submit" style="width: 20%; float: right;">Submit</button>
-                        </div>
-                </form>
+                            </div>
+                    </form>
 
-            </div>
+                </div>
         </div>
-                        </fieldset>
-    </div>
-                        
-    
+    </fieldset>
+</div>
+
+
 </div>
 </body>
 </html>

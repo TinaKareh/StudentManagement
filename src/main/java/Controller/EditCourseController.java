@@ -67,7 +67,7 @@ public class EditCourseController extends HttpServlet {
         course =courseFacade.addCourse(co);
         
         if(course == null){
-            Course newCourse = new Course();
+            Course newCourse = courseFacade.find(Long.parseLong(request.getParameter("instId")));
             newCourse.setCourseName(co);
             courseFacade.edit(newCourse);
             response.sendRedirect(request.getContextPath() + "/view/course");
