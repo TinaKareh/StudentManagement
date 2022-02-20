@@ -44,17 +44,7 @@ public class InstitutionFacade extends AbstractFacade<Institution> {
         }
     }
     
-//    public Institution deleteInstitution(){
-//     String jpql = "SELECT a FROM Institution a WHERE a.institutionName = :institution";
-//        Query query = getEntityManager().createQuery(jpql);
-//        query.setParameter("institution", institutionName);
-//
-//        try {
-//            return (Institution) query.getSingleResult();
-//        } catch (Exception x) {
-//            return null;
-//        }
-//    }
+  
     
 
 }

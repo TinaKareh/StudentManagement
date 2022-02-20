@@ -17,11 +17,31 @@
         <title>Institution | Assign Courses</title>
     </head>
     <body>
-        <div class="container">
-            <fieldset style="margin-right: 200px;" >
-                <legend style="font-size: 20px; font-weight: 600; margin-bottom:50px;">Add Course</legend>
+        <div class="container" style="margin-top: 100px;">
+             <nav class="navbar navbar-expand-sm bg-success navbar-dark fixed-top">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/view/institution">Institution</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/view/students">Student</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/view/course">Course</a>
+                </li>
+<!--                <li class="nav-item">
+                    <a class="nav-link disabled" href="#">Disabled</a>
+                </li>-->
+            </ul>
+        </nav>
+                <div class="form-group">
+                    <a href="${pageContext.request.contextPath}/view/institution" class="btn btn-success btn-sm">Back</a>
+                </div>
+            <fieldset style="margin-right: 100px;" >
+                
+                <legend style="font-size: 20px; font-weight: 600; margin-bottom:30px;">Add Course</legend>
                 <div class="card">
-                    <form action="/assign/course" method="POST">
+                    <form action="${pageContext.request.contextPath}/assign/course" method="POST">
                         <div class="card-header">
                             <table>
                                 <tr>
@@ -38,7 +58,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="course">Add Courses</label><span style="color: #0069d9;">*</span><br>
-                                <select multiple name="course" class="form-control"  style="width: 100%;"><c:forEach items="${courses}" var="course">
+                                <select name="course" class="form-control"  style="width: 100%;"><c:forEach items="${courses}" var="course">
                                         <option value="${course.courseId}">${course.courseName}</option>
                                     </c:forEach></select>
                             </div>

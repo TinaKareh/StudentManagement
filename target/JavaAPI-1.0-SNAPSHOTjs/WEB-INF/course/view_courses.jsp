@@ -15,11 +15,27 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
         <link rel="stylesheet" type="text/css" media="screen" href="${pageContext.request.contextPath}/resources/css/index.css" />
         <title>Student Management |Courses</title>
-        
+
     </head>
     <body>
-       
-        <div class="container" style="margin-top: 50px;">
+
+        <div class="container" style="margin-top: 100px;">
+             <nav class="navbar navbar-expand-sm bg-success navbar-dark fixed-top">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/view/institution">Institution</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/view/students">Student</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/view/course">Course</a>
+                </li>
+<!--                <li class="nav-item">
+                    <a class="nav-link disabled" href="#">Disabled</a>
+                </li>-->
+            </ul>
+        </nav>
             <form action="${pageContext.request.contextPath}/add/course" method="POST">
                 <div class="form-group">
                     <label for="institution">Course Name</label><span style="color: #0069d9;">*</span><br>
@@ -31,7 +47,7 @@
             </form>
             <div class="card" >
                 <div class="card-header">Courses</div>
-               <p id="demo" value="Already Added"></p>
+                <p id="demo" value="Already Added"></p>
                 <table class="table table-striped">
                     <thead>
                         <tr>
@@ -41,13 +57,21 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <c:forEach items = "${courses}" var="course" >
-                        <tr>
-                            <td>${course.courseId}</td>
-                            <td>${course.courseName}</td> 
-                            <td><a href="" class="btn btn-success btn-sm">Edit</a> <a href="${pageContext.request.contextPath}/delete/institution?institutionId=${course.courseId}" class="btn btn-danger btn-sm">Delete</a></td> 
-                        </tr>
-                    </c:forEach>
+                        <c:forEach items = "${courses}" var="course" >
+                            <tr>
+                                <td>${course.courseId}</td>
+                                <td>${course.courseName}</td> 
+                                <td><div class="dropdown">
+                                        <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown">Action
+                                            <span class="caret"></span></button>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/edit/course?institutionId=${course.courseId}">Edit</a></li>
+                                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/delete/institution?institutionId=${course.courseId}">Delete</a></li>
+
+                                        </ul>
+                                    </div></td>
+                            </tr>
+                        </c:forEach>
                     </tbody>
                 </table>
             </div>

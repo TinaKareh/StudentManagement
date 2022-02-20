@@ -32,22 +32,6 @@ public class AddStudentController extends HttpServlet {
     @EJB
     private InstitutionFacade institutionFacade;
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        List institutions = institutionFacade.findAll();
-        request.setAttribute("institution", institutions);
-        request.getRequestDispatcher("/WEB-INF/student/add_student.jsp").forward(request, response);
-    }
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -60,18 +44,16 @@ public class AddStudentController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Course course = (Course) request.getAttribute("");
-        Institution inst = (Institution) request.getAttribute("institution");
         Student student = new Student();
-        student.setFirstName(request.getParameter(""));
-        student.setMiddleName(request.getParameter(""));
-        student.setSurname(request.getParameter(""));
-        student.setStudentIndentification(request.getParameter(""));
-        student.setInstitution(inst);
-        student.setCourse(course);
+        String inst = request.getParameter("institution");
+        student.setFirstName(request.getParameter("fname"));
+        student.setMiddleName(request.getParameter("lname"));
+        student.setSurname(request.getParameter("uname"));
+        student.setStudentIndentification(request.getParameter("email"));
+        student.setInstitution(institutionFacade.find(Long.parseLong(inst)));
 
         studentFacade.create(student);
-         response.sendRedirect("/view/students");
+         response.sendRedirect(request.getContextPath() +"/view/students");
     }
 
 }

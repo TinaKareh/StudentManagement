@@ -6,9 +6,12 @@
 package Controller;
 
 import Model.Institution;
+import Model.InstitutionCourse;
+import Service.InstitutionCourseFacade;
 import Service.InstitutionFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,11 +28,11 @@ public class DeleteInstitutionController extends HttpServlet {
 
     @EJB
     private InstitutionFacade institutionFacade;
+    @EJB
+    private InstitutionCourseFacade facade;
 
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
+     /**
+     * Handles the HTTP <code>POST</code> method.
      *
      * @param request servlet request
      * @param response servlet response
@@ -37,14 +40,20 @@ public class DeleteInstitutionController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
         Institution institution = institutionFacade.find(Long.parseLong(request.getParameter("institutionId")));
-        institutionFacade.remove(institution);
-        getServletContext()
-                .getRequestDispatcher("/WEB-INF/institution/view_institutions.jsp")
-                .forward(request, response);
+        List<InstitutionCourse> inst = facade.institutionCourses(institution);
+        if (inst == null) {
+            institutionFacade.remove(institution);
+            response.sendRedirect(request.getContextPath() + "/view/institution");
+        } else {
+            request.getRequestDispatcher("/WEB-INF/institution/view_institutions.jsp").forward(request, response);
+        }
     }
 
+    
+
 }
+
+

@@ -5,6 +5,7 @@
  */
 package Controller;
 
+import Model.Course;
 import Model.Institution;
 import Model.InstitutionCourse;
 import Service.CourseFacade;
@@ -68,18 +69,20 @@ public class AssignCourseController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        InstitutionCourse inst = new InstitutionCourse();
+        InstitutionCourse institution = new InstitutionCourse();
         Institution task = institutionFacade.find(Long.parseLong(request.getParameter("instId")));
-        inst = (InstitutionCourse) facade.addCourse(task);
-        if (inst == null) {
-            for (String val : request.getParameterValues("course")) {
-                InstitutionCourse course = new InstitutionCourse();
-                course.setInstitution(task);
-                course.setCourse(courseFacade.find(Long.parseLong(val.replace("", ""))));
-                facade.create(course);
+        Course course = courseFacade.find(Long.parseLong(request.getParameter("course")));
+        institution = facade.addCourse(task,course);
+        if (institution == null) {
+            InstitutionCourse inst = new InstitutionCourse();
+                inst.setInstitution(task);
+                inst.setCourse(course);
+                facade.create(inst);
+            response.sendRedirect(request.getContextPath() + "/assign/course");
 
-            }
         } else {
+            request.getRequestDispatcher("/WEB-INF/institution/assign_courses.jsp").forward(request, response);
+
         }
 
     }

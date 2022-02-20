@@ -1,8 +1,7 @@
-  
-<%-- 
-    Document   : index
-    Created on : Mar 19, 2019, 2:02:12 PM
-    Author     : GraceTina
+  <%-- 
+    Document   : add_user
+    Created on : 18 Feb 2022, 08:45:10
+    Author     : Futuristic Ltd
 --%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -14,7 +13,7 @@
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
         <link rel="stylesheet" type="text/css" media="screen" href="${pageContext.request.contextPath}/resources/css/index.css" />
-        <title>Student Management | Add UserS</title>
+        <title>Student Management | Add Users</title>
     </head>
     <body>
         <div class ="container">

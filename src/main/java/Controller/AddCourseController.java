@@ -47,9 +47,9 @@ public class AddCourseController extends HttpServlet {
             Course newCourse = new Course();
             newCourse.setCourseName(co);
             courseFacade.create(newCourse);
-            response.sendRedirect(request.getContextPath() + "/view/courses");
+            response.sendRedirect(request.getContextPath() + "/view/course");
         }else{
-            response.sendRedirect(request.getContextPath() + "/view/courses");
+            response.sendRedirect(request.getContextPath() + "/view/course");
         }
        
     }

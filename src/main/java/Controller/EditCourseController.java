@@ -5,8 +5,13 @@
  */
 package Controller;
 
+import Model.Course;
+import Service.CourseFacade;
+import Service.InstitutionCourseFacade;
+import Service.InstitutionFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,31 +25,12 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "EditCourseController", urlPatterns = {"/edit/course"})
 public class EditCourseController extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet EditCourseController</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet EditCourseController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
+    @EJB
+    private CourseFacade courseFacade;
+    @EJB
+    private InstitutionFacade institutionFacade;
+    @EJB
+    private InstitutionCourseFacade facade;
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -58,7 +44,11 @@ public class EditCourseController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+       Course course = courseFacade.find(Long.parseLong(request.getParameter("institutionId")));
+        request.setAttribute("course", course);
+        getServletContext()
+                .getRequestDispatcher("/WEB-INF/course/edit_course.jsp")
+                .forward(request, response);
     }
 
     /**
@@ -72,17 +62,19 @@ public class EditCourseController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+         Course course = new Course();
+        String co = request.getParameter("course");
+        course =courseFacade.addCourse(co);
+        
+        if(course == null){
+            Course newCourse = new Course();
+            newCourse.setCourseName(co);
+            courseFacade.edit(newCourse);
+            response.sendRedirect(request.getContextPath() + "/view/course");
+        }else{
+            response.sendRedirect(request.getContextPath() + "/view/course");
+        }
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
 
 }

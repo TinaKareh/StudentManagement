@@ -5,6 +5,7 @@
  */
 package Service;
 
+import Model.Course;
 import Model.Institution;
 import Model.InstitutionCourse;
 import java.util.List;
@@ -39,16 +40,18 @@ public class InstitutionCourseFacade extends AbstractFacade<InstitutionCourse> {
         return (List<InstitutionCourse>) query.getResultList(); 
     }
     
-     public List<InstitutionCourse> addCourse(Institution inst) {
+     public InstitutionCourse addCourse(Institution inst,Course course) {
 
-        String jpql = "SELECT a FROM InstitutionCourse a WHERE a.institution = :inst";
+        String jpql = "SELECT a FROM InstitutionCourse a WHERE a.institution = :inst and a.course = :course";
         Query query = getEntityManager().createQuery(jpql);
         query.setParameter("inst", inst);
+        query.setParameter("course", course);
 
         try {
-            return (List<InstitutionCourse>) query.getResultList();
+            return (InstitutionCourse) query.getSingleResult();
         } catch (Exception x) {
             return null;
         }
     }
+     
 }
