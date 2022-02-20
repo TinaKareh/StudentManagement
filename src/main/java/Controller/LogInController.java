@@ -60,7 +60,7 @@ public class LogInController extends HttpServlet {
         } else {
             HttpSession session = request.getSession(true);
             session.setAttribute("user", authUser);
-            response.sendRedirect(request.getContextPath() +"/dashboard");
+            response.sendRedirect(request.getContextPath() +"/view/institution");
         }
 
     }

@@ -49,7 +49,7 @@
                             <label for="confirmPass">Confirm Password</label><span style="color: #0069d9;">*</span>
                             <input name="confirmPass" class="form-control" type="password" style="width: 60%;" id="confirmPass" placeholder="Confirm Password" required="">
                         </div>
-                        <button class="btn btn-primary btn-sm" style="width: 60%; " type="submit">Submit</button>
+                        <button class="btn btn-success btn-sm" style="width: 60%; " type="submit">Submit</button>
                     </form>
                 </fieldset>
             </div>
