@@ -46,11 +46,9 @@ public class AddInstitutionController extends HttpServlet {
             Institution stitution = new Institution();
             stitution.setInstitutionName(institution);
             institutionFacade.create(stitution);
-            response.sendRedirect(request.getContextPath() + "/view/institution");
+            response.sendRedirect(request.getContextPath() + "/view/institution?success=1");
         } else {
-            String message = "Institution already exists";
-            request.setAttribute("exists",message);
-            request.getRequestDispatcher("/WEB-INF/institution/view_institution.jsp").forward(request, response);
+            response.sendRedirect(request.getContextPath() + "/view/institution?success=0");
         }
     }
 

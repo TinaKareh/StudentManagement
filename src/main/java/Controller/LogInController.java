@@ -56,7 +56,7 @@ public class LogInController extends HttpServlet {
             throws ServletException, IOException {
         AuthUser authUser = authFacade.getUserByEmailAddressAndPassword(request.getParameter("email"), request.getParameter("password"));
         if (authUser == null) {
-            request.getRequestDispatcher("/WEB-INF/auth/index.jsp").forward(request, response);
+            response.sendRedirect(request.getContextPath() +"?success=0");
         } else {
             HttpSession session = request.getSession(true);
             session.setAttribute("user", authUser);

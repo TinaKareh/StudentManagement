@@ -13,7 +13,8 @@
         <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-        <link rel="stylesheet" type="text/css" media="screen" href="/resources/css/index.css" />
+        <link rel="stylesheet" type="text/css" media="screen" href="${pageContext.request.contextPath}/resources/css/index.css" />
+        <script src="${pageContext.request.contextPath}/resources/index/index.js"></script>
         <title>Student Management |Student</title>
 
 
@@ -24,7 +25,7 @@
 
         <div class="container" style="margin-top: 100px;">
 
-            <nav class="navbar navbar-expand-sm bg-success navbar-dark fixed-top">
+            <nav class="navbar navbar-expand-sm bg-success navbar-dark fixed-top justify-content-between">
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link" href="${pageContext.request.contextPath}/view/institution">Institution</a>
@@ -35,12 +36,27 @@
                     <li class="nav-item">
                         <a class="nav-link" href="${pageContext.request.contextPath}/view/course">Course</a>
                     </li>
-                    <!--                <li class="nav-item">
-                                        <a class="nav-link disabled" href="#">Disabled</a>
-                                    </li>-->
+
+                </ul>
+                <ul class="navbar-nav mr-2">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                            ${user.firstName} ${user.lastName}
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="${pageContext.request.contextPath}/logout">Logout</a>
+
+                        </div>
+                    </li>
+
                 </ul>
             </nav>
+
+            <c:if test="${param.success eq 1}">
+                <div class="alert alert-success">Student added successfully.</div>
+            </c:if> 
             <div class="row">
+
                 <div class="col">
                     <button type="button" class="btn btn-success btn-sm mb-3" data-toggle="modal" data-target="#myModal">
                         Add Student
@@ -112,7 +128,7 @@
                             <th style=" font-style: oblique;">Action</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="course">
                         <c:forEach items = "${students}" var="report" >
                             <tr>
                                 <td>${report.studentId}</td>

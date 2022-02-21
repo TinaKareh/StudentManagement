@@ -5,6 +5,7 @@
  */
 package Controller;
 
+import Model.AuthUser;
 import Service.CourseFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -16,6 +17,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -39,6 +41,12 @@ public class ViewCourseController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpServletRequest httpReq = (HttpServletRequest) request;
+        HttpSession session = httpReq.getSession();
+        
+        AuthUser user = (AuthUser) session.getAttribute("user");
+        request.setAttribute("user", user);
+        
         LOG.log(Level.INFO, String.valueOf(courseFacade.findAll().size()));
         request.setAttribute("courses", courseFacade.findAll());
 

@@ -53,7 +53,7 @@ public class AddStudentController extends HttpServlet {
         student.setInstitution(institutionFacade.find(Long.parseLong(inst)));
 
         studentFacade.create(student);
-         response.sendRedirect(request.getContextPath() +"/view/students");
+         response.sendRedirect(request.getContextPath() +"/view/students?success=1");
     }
 
 }

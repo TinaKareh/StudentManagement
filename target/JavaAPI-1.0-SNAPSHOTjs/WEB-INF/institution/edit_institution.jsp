@@ -18,55 +18,65 @@
     </head>
     <body>
         <div class="container" style="margin-top: 100px;">
-             <nav class="navbar navbar-expand-sm bg-success navbar-dark fixed-top">
-            <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/view/institution">Institution</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/view/students">Student</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/view/course">Course</a>
-                </li>
-<!--                <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Disabled</a>
-                </li>-->
-            </ul>
-        </nav>
-                        <fieldset style="margin-right: 200px;" >
-            <div class="card">
-                <form action="${pageContext.request.contextPath}/edit/institution" method="POST">
+            <nav class="navbar navbar-expand-sm bg-success navbar-dark fixed-top justify-content-between">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/view/institution">Institution</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/view/students">Student</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/view/course">Course</a>
+                    </li>
 
-                    <div class="card-header">
-                        <table>
-                            <tr>
-                                <td align="left"><b>Institution:</b></td>
-                                <td>${institution.institutionName}</td>
-                            </tr>
+                </ul>
+                <ul class="navbar-nav mr-2">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                            ${user.firstName} ${user.lastName}
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="${pageContext.request.contextPath}/logout">Logout</a>
 
-                        </table>
-                    </div>
-                    <div class="card-body">
-                        <div class="form-group">
+                        </div>
+                    </li>
+
+                </ul>
+            </nav>
+            <fieldset style="margin-right: 200px;" >
+                <div class="card">
+                    <form action="${pageContext.request.contextPath}/edit/institution" method="POST">
+
+                        <div class="card-header">
+                            <table>
+                                <tr>
+                                    <td align="left"><b>Institution:</b></td>
+                                    <td>${institution.institutionName}</td>
+                                </tr>
+
+                            </table>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
                                 <label for="instId">Institution ID</label><span style="color: #0069d9;">*</span>
                                 <input name="instId" class="form-control" type="text"  id="instId" value="${institution.institutionId}" required="">
                             </div>
-                        <div class="form-group">
-                            <label for="institution">Institution ID</label><span style="color: #0069d9;">*</span>
-                            <input name="institution" class="form-control" type="text"  id="institution" value="${institution.institutionName}" required="">
-                        </div>
-                        <div class="card-footer"> 
+                            <div class="form-group">
+                                <label for="institution">Institution ID</label><span style="color: #0069d9;">*</span>
+                                <input name="institution" class="form-control" type="text"  id="institution" value="${institution.institutionName}" required="">
+                            </div>
+                            <div class="card-footer"> 
                                 <button class="btn btn-success btn-sm"  type="submit" style="width: 20%; float: right;">Submit</button>
-                        </div>
-                </form>
+                            </div>
+                    </form>
 
-            </div>
+                </div>
         </div>
-                        </fieldset>
-    </div>
-                        
-    
+    </fieldset>
+</div>
+
+
 </div>
 </body>
 </html>

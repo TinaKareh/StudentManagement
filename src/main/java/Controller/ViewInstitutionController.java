@@ -5,6 +5,7 @@
  */
 package Controller;
 
+import Model.AuthUser;
 import Model.Institution;
 import Service.AuthUserFacade;
 import Service.InstitutionFacade;
@@ -19,6 +20,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -45,6 +47,12 @@ public class ViewInstitutionController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        HttpServletRequest httpReq = (HttpServletRequest) request;
+        HttpSession session = httpReq.getSession();
+        
+        AuthUser user = (AuthUser) session.getAttribute("user");
+        request.setAttribute("user", user);
+        
         LOG.log(Level.INFO, String.valueOf(institutionFacade.findAll().size()));
         request.setAttribute("institutions", institutionFacade.findAll());
 

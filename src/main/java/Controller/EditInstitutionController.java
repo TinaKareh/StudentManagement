@@ -5,6 +5,7 @@
  */
 package Controller;
 
+import Model.AuthUser;
 import Model.Institution;
 import Model.InstitutionCourse;
 import Service.CourseFacade;
@@ -19,6 +20,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -47,6 +49,12 @@ public class EditInstitutionController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        HttpServletRequest httpReq = (HttpServletRequest) request;
+        HttpSession session = httpReq.getSession();
+        
+        AuthUser user = (AuthUser) session.getAttribute("user");
+        request.setAttribute("user", user);
+        
         Institution institution = institutionFacade.find(Long.parseLong(request.getParameter("institutionId")));
         request.setAttribute("institution", institution);
         getServletContext()

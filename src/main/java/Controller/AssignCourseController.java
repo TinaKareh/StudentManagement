@@ -5,6 +5,7 @@
  */
 package Controller;
 
+import Model.AuthUser;
 import Model.Course;
 import Model.Institution;
 import Model.InstitutionCourse;
@@ -20,6 +21,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -47,6 +49,13 @@ public class AssignCourseController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        HttpServletRequest httpReq = (HttpServletRequest) request;
+        HttpSession session = httpReq.getSession();
+        
+        AuthUser user = (AuthUser) session.getAttribute("user");
+        request.setAttribute("user", user);
+        
         List courses = courseFacade.findAll();
         Institution institution = institutionFacade.find(Long.parseLong(request.getParameter("institutionId")));
         List<InstitutionCourse> inst = facade.institutionCourses(institution);
@@ -78,10 +87,10 @@ public class AssignCourseController extends HttpServlet {
                 inst.setInstitution(task);
                 inst.setCourse(course);
                 facade.create(inst);
-            response.sendRedirect(request.getContextPath() + "/assign/course");
+            response.sendRedirect(request.getContextPath() + "/assign/course?success=1");
 
         } else {
-            request.getRequestDispatcher("/WEB-INF/institution/assign_courses.jsp").forward(request, response);
+            response.sendRedirect(request.getContextPath() + "/assign/course?success=0");
 
         }
 

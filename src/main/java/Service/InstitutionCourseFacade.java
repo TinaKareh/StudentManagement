@@ -53,5 +53,11 @@ public class InstitutionCourseFacade extends AbstractFacade<InstitutionCourse> {
             return null;
         }
     }
+     public List<InstitutionCourse> getInstitutionsByCourse(Course course){
+         Query query = getEntityManager().createQuery("select a from InstitutionCourse a where a.course = :course");
+        query.setParameter("course", course);
+        
+        return (List<InstitutionCourse>) query.getResultList(); 
+    }
      
 }

@@ -27,6 +27,7 @@ Service\AuthUserFacade.class
 Model\AuthUser.class
 Model\Student_.class
 Model\Institution_.class
+Controller\ViewCourseProfileController.class
 Model\InstitutionCourse.class
 Controller\AutheticationController.class
 Controller\AddUserController.class

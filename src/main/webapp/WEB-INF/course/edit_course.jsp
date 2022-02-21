@@ -18,7 +18,7 @@
     </head>
     <body>
         <div class="container" style="margin-top: 100px;">
-            <nav class="navbar navbar-expand-sm bg-success navbar-dark fixed-top">
+            <nav class="navbar navbar-expand-sm bg-success navbar-dark fixed-top justify-content-between">
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link" href="${pageContext.request.contextPath}/view/institution">Institution</a>
@@ -29,9 +29,19 @@
                     <li class="nav-item active">
                         <a class="nav-link" href="${pageContext.request.contextPath}/view/course">Course</a>
                     </li>
-                    <!--                <li class="nav-item">
-                                        <a class="nav-link disabled" href="#">Disabled</a>
-                                    </li>-->
+                   
+                </ul>
+                     <ul class="navbar-nav mr-2">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                            ${user.firstName} ${user.lastName}
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="${pageContext.request.contextPath}/logout">Logout</a>
+                            
+                        </div>
+                    </li>
+            
                 </ul>
             </nav>
             <div class="form-group">

@@ -5,6 +5,7 @@
  */
 package Controller;
 
+import Model.AuthUser;
 import Model.Course;
 import Model.Institution;
 import Model.InstitutionCourse;
@@ -22,6 +23,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -51,6 +53,13 @@ public class EditStudentController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        HttpServletRequest httpReq = (HttpServletRequest) request;
+        HttpSession session = httpReq.getSession();
+        
+        AuthUser user = (AuthUser) session.getAttribute("user");
+        request.setAttribute("user", user);
+        
         Institution institution = facade.find(Long.parseLong(request.getParameter("institutionId")));
         List<InstitutionCourse> inst = institutionFacade.institutionCourses(institution);
         Student student = studentFacade.find(Long.parseLong(request.getParameter("studentId")));

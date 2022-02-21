@@ -1,4 +1,5 @@
   
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%-- 
     Document   : index
     Created on : 18 Feb 2022, 08:45:10
@@ -26,6 +27,9 @@
                  ">
                 <fieldset>
                     <legend style="margin-bottom: 40px; font-size: 30px; font-weight: 600;">Log In</legend>
+                    <c:if test="${param.success eq 0}">
+                        <div class="alert alert-danger">Wrong username or password.Please try again</div>
+                    </c:if>
                     <form action="${pageContext.request.contextPath}/login" method="POST">
                         <div class="form-group">
                             <label for="email">Email Address</label><span style="color: #0069d9;">*</span><br>

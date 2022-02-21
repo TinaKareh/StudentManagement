@@ -5,6 +5,7 @@
  */
 package Controller;
 
+import Model.AuthUser;
 import Model.Course;
 import Service.CourseFacade;
 import Service.InstitutionCourseFacade;
@@ -17,6 +18,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -44,6 +46,13 @@ public class EditCourseController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        HttpServletRequest httpReq = (HttpServletRequest) request;
+        HttpSession session = httpReq.getSession();
+        
+        AuthUser user = (AuthUser) session.getAttribute("user");
+        request.setAttribute("user", user);
+        
        Course course = courseFacade.find(Long.parseLong(request.getParameter("institutionId")));
         request.setAttribute("course", course);
         getServletContext()

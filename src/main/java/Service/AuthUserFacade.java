@@ -36,7 +36,12 @@ public class AuthUserFacade extends AbstractFacade<AuthUser> {
         query.setParameter("email", emailAddress);
         query.setParameter("password", password);
 
+        
+         try {
             return (AuthUser) query.getSingleResult();
+        } catch (Exception x) {
+            return null;
+        }
         
     }
 }

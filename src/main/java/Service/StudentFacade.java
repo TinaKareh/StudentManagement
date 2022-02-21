@@ -5,6 +5,7 @@
  */
 package Service;
 
+import Model.Course;
 import Model.Institution;
 import Model.InstitutionCourse;
 import Model.Student;
@@ -36,6 +37,13 @@ public class StudentFacade extends AbstractFacade<Student> {
      public List<Student> institutionStudents(Institution inst){
          Query query = getEntityManager().createQuery("select a from Student a where a.institution = :inst");
         query.setParameter("inst", inst);
+        
+        return (List<Student>) query.getResultList(); 
+    } 
+     
+        public List<Student> getStudentsByCourse(Course course){
+         Query query = getEntityManager().createQuery("select a from Student a where a.course = :course");
+        query.setParameter("course", course);
         
         return (List<Student>) query.getResultList(); 
     } 
