@@ -23,7 +23,7 @@
                     <li class="nav-item active">
                         <a class="nav-link" href="${pageContext.request.contextPath}/view/institution">Institution</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item active">
                         <a class="nav-link" href="${pageContext.request.contextPath}/view/students">Student</a>
                     </li>
                     <li class="nav-item">

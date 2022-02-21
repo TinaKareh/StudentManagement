@@ -20,31 +20,63 @@
     <body>
 
         <div class="container" style="margin-top: 100px;">
-             <nav class="navbar navbar-expand-sm bg-success navbar-dark fixed-top">
-            <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/view/institution">Institution</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/view/students">Student</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/view/course">Course</a>
-                </li>
-<!--                <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Disabled</a>
-                </li>-->
-            </ul>
-        </nav>
-            <form action="${pageContext.request.contextPath}/add/course" method="POST">
-                <div class="form-group">
-                    <label for="institution">Course Name</label><span style="color: #0069d9;">*</span><br>
-                    <input name="name" class="form-control" type="text" id="name" style="width: 60%;" placeholder="Enter Course Name" required="">
+            <nav class="navbar navbar-expand-sm bg-success navbar-dark fixed-top">
+                <ul class="navbar-nav">
+                    <li class="nav-item ">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/view/institution">Institution</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/view/students">Student</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/view/course">Course</a>
+                    </li>
+                    <!--                <li class="nav-item">
+                                        <a class="nav-link disabled" href="#">Disabled</a>
+                                    </li>-->
+                </ul>
+            </nav>
+            <div class="row">
+                <div class="col">
+                    <button type="button" class="btn btn-success btn-sm mb-3" data-toggle="modal" data-target="#myModal">
+                        Add Course
+                    </button>                </div>
+                <div class="col">
+                    <input class="form-control mr-3" id="myInput" type="text" placeholder="Search..">
                 </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-success btn-sm">Add Course</button>
+            </div>
+            <div class="modal fade" id="myModal">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <h4 class="modal-title">Add Course</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                            <form action="${pageContext.request.contextPath}/add/course" method="POST">
+                                <div class="form-group">
+                                    <label for="institution">Course Name</label><span style="color: #0069d9;">*</span><br>
+                                    <input name="name" class="form-control" type="text" id="name"  placeholder="Enter Course Name" required="">
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-success btn-sm" style="width: 100%;">Add Course</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+
+                    </div>
                 </div>
-            </form>
+            </div>
+
             <div class="card" >
                 <div class="card-header">Courses</div>
                 <p id="demo" value="Already Added"></p>

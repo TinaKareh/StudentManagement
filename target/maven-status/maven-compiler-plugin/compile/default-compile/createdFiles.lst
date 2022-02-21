@@ -33,6 +33,7 @@ Controller\AddUserController.class
 Controller\DeleteCourseController.class
 Service\InstitutionCourseFacade.class
 Controller\ViewStudentsController.class
+Controller\ViewInstitutionProfileController.class
 Model\Users.class
 Service\UsersFacade.class
 Controller\EditStudentController.class

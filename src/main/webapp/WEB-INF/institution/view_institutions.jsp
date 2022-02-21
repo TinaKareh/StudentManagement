@@ -30,21 +30,54 @@
                 <li class="nav-item">
                     <a class="nav-link" href="${pageContext.request.contextPath}/view/course">Course</a>
                 </li>
-<!--                <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Disabled</a>
-                </li>-->
+                <!--                <li class="nav-item">
+                                    <a class="nav-link disabled" href="#">Disabled</a>
+                                </li>-->
             </ul>
         </nav>
         <div class="container" style="margin-top: 100px;">
-            <form action="${pageContext.request.contextPath}/add/institution" method="POST">
-                <div class="form-group">
-                    <label for="institution">Institution Name</label><span style="color: #0069d9;">*</span><br>
-                    <input name="institution" class="form-control" type="text" id="institution" style="width: 60%;" placeholder="Enter Institution Name" required="">
+            <div class="row">
+                <div class="col">
+                    <button type="button" class="btn btn-success btn-sm mb-3" data-toggle="modal" data-target="#myModal">
+                        Add Institution
+                    </button>                </div>
+                <div class="col">
+                    <input class="form-control mr-3" id="myInput" type="text" placeholder="Search..">
                 </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-success btn-sm">Add Institution</button>
+            </div>
+            
+            <div class="modal fade" id="myModal">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <h4 class="modal-title">Add Institution</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                            <form action="${pageContext.request.contextPath}/add/institution" method="POST">
+                                <div class="form-group">
+                                    <label for="institution">Institution Name</label><span style="color: #0069d9;">*</span><br>
+                                    <input name="institution" class="form-control" type="text" id="institution"  placeholder="Enter Institution Name" required="">
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-success btn-sm" style="width: 100%;">Add Institution</button>
+                                </div>
+                            </form> 
+                        </div>
+
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+
+                    </div>
                 </div>
-            </form>
+            </div>
+
             <div class="card" >
                 <div class="card-header">Institutions</div>
                 <p id="demo" value="Already Added"></p>
@@ -65,6 +98,7 @@
                                         <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown">Action
                                             <span class="caret"></span></button>
                                         <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/view/institution/profile?institutionId=${report.institutionId}">View</a></li>
                                             <li><a class="dropdown-item" href="${pageContext.request.contextPath}/edit/institution?institutionId=${report.institutionId}">Edit</a></li>
                                             <li><a class="dropdown-item" href="${pageContext.request.contextPath}/delete/institution?institutionId=${report.institutionId}">Delete</a></li>
                                             <li><a class="dropdown-item" href="${pageContext.request.contextPath}/assign/course?institutionId=${report.institutionId}">Assign Course</a></li>

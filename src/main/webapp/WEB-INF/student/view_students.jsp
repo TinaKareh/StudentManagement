@@ -23,27 +23,32 @@
 
 
         <div class="container" style="margin-top: 100px;">
-            
-             <nav class="navbar navbar-expand-sm bg-success navbar-dark fixed-top">
-            <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/view/institution">Institution</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/view/students">Student</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/view/course">Course</a>
-                </li>
-<!--                <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Disabled</a>
-                </li>-->
-            </ul>
-        </nav>
-            <button type="button" class="btn btn-success btn-sm mb-3" data-toggle="modal" data-target="#myModal">
-                Add Student
-            </button>
 
+            <nav class="navbar navbar-expand-sm bg-success navbar-dark fixed-top">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/view/institution">Institution</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/view/students">Student</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/view/course">Course</a>
+                    </li>
+                    <!--                <li class="nav-item">
+                                        <a class="nav-link disabled" href="#">Disabled</a>
+                                    </li>-->
+                </ul>
+            </nav>
+            <div class="row">
+                <div class="col">
+                    <button type="button" class="btn btn-success btn-sm mb-3" data-toggle="modal" data-target="#myModal">
+                        Add Student
+                    </button>               </div>
+                <div class="col">
+                    <input class="form-control mr-3" id="myInput" type="text" placeholder="Search..">
+                </div>
+            </div>
             <!-- The Modal -->
             <div class="modal fade" id="myModal">
                 <div class="modal-dialog modal-dialog-centered">

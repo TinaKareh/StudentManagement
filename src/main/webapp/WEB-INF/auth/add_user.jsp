@@ -1,7 +1,7 @@
-  <%-- 
-    Document   : add_user
-    Created on : 18 Feb 2022, 08:45:10
-    Author     : Futuristic Ltd
+<%-- 
+  Document   : add_user
+  Created on : 18 Feb 2022, 08:45:10
+  Author     : Futuristic Ltd
 --%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -18,40 +18,49 @@
     <body>
         <div class ="container">
             <div class="login">
-                <fieldset>
-                    <legend style="margin-bottom: 40px; font-size: 30px; font-weight: 600;  color: #0069d9;">Log In</legend>
-                    <form action="${pageContext.request.contextPath}/add/user" method="POST">
-                        <div class="form-group">
-                            <label for="fname">First Name</label><span style="color: #0069d9;">*</span><br>
-                            <input name="fname" class="form-control" type="text" id="fname" style="width: 60%;" placeholder="Enter First Name" required="">
+                <legend class="mt-4" style="font-size: 30px; font-weight: 600;">Register</legend>
+                <form action="${pageContext.request.contextPath}/add/user" method="POST">
+                    <div class="row">
+                        <div class="col">
+                            <label for="fname" class="mr-sm-2">First Name</label><span style="color: #0069d9;">*</span><br>
+                            <input name="fname" class="form-control " type="text" id="fname" placeholder="Enter First Name" required="">
                         </div>
-                        <div class="form-group">
-                            <label for="lname">Last Name</label><span style="color: #0069d9;">*</span><br>
-                            <input name="lname" class="form-control" type="text" id="lname" style="width: 60%;" placeholder="Enter Last Name" required="">
+                        <div class="col">
+                            <label for="lname" class="mr-sm-2">Last Name</label><span style="color: #0069d9;">*</span><br>
+                            <input name="lname" class="form-control " type="text" id="lname" placeholder="Enter Last Name" required="">
                         </div>
-                        <div class="form-group">
-                            <label for="uname">User Name</label><span style="color: #0069d9;">*</span><br>
-                            <input name="uname" class="form-control" type="text" id="uname" style="width: 60%;" placeholder="Enter User Name" required="">
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col">
+                            <label for="uname" class="mr-sm-2">User Name</label><span style="color: #0069d9;">*</span><br>
+                            <input name="uname" class="form-control" type="text" id="uname" placeholder="Enter User Name" required="">
                         </div>
-                        <div class="form-group">
-                            <label for="email">Email Address</label><span style="color: #0069d9;">*</span><br>
-                            <input name="email" class="form-control" type="email" id="email" style="width: 60%;" placeholder="Enter Email Address" required="">
+                        <div class="col">
+                            <label for="email" class="mr-sm-2">Email Address</label><span style="color: #0069d9;">*</span><br>
+                            <input name="email" class="form-control" type="email" id="email"  placeholder="Enter Email Address" required="">
                         </div>
-                        <div class="form-group">
-                            <label for="phone">Phone Number</label><span style="color: #0069d9;">*</span><br>
-                            <input name="phone" class="form-control" type="text" id="phone" style="width: 60%;" placeholder="Enter Phone Number" required="">
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col">
+                            <label for="phone" class="mr-sm-2">Phone Number</label><span style="color: #0069d9;">*</span><br>
+                            <input name="phone" class="form-control b-2 mr-sm-2" type="text" id="phone" placeholder="Enter Phone Number" required="">
                         </div>
-                        <div class="form-group">
-                            <label for="password">Password</label><span style="color: #0069d9;">*</span>
-                            <input name="password" class="form-control" type="password" style="width: 60%;" id="password" placeholder="Enter Password" required="">
+                        <div class="col">
+                            <label for="password" class="mr-sm-2">Password</label><span style="color: #0069d9;">*</span>
+                            <input name="password" class="form-control" type="password"  id="password" placeholder="Enter Password" required="">
                         </div>
-                        <div class="form-group">
-                            <label for="confirmPass">Confirm Password</label><span style="color: #0069d9;">*</span>
-                            <input name="confirmPass" class="form-control" type="password" style="width: 60%;" id="confirmPass" placeholder="Confirm Password" required="">
+                        
+                    </div>
+                    <div class="row mt-3" >
+                       <div class="col">
+                            <label for="confirmPass" class="mr-sm-2">Confirm Password</label><span style="color: #0069d9;">*</span>
+                            <input name="confirmPass" class="form-control " type="password"  id="confirmPass" placeholder="Confirm Password" required="">
                         </div>
-                        <button class="btn btn-success btn-sm" style="width: 60%; " type="submit">Submit</button>
-                    </form>
-                </fieldset>
+                        
+                    </div>
+                    <button class="btn btn-success  mt-4 ml-1" style="width: 60%; " type="submit">Submit</button>
+
+                </form>
             </div>
         </div>
     </body>

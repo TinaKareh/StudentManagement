@@ -20,13 +20,13 @@
         <div class="container" style="margin-top: 100px;">
             <nav class="navbar navbar-expand-sm bg-success navbar-dark fixed-top">
                 <ul class="navbar-nav">
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link" href="${pageContext.request.contextPath}/view/institution">Institution</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="${pageContext.request.contextPath}/view/students">Student</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item active">
                         <a class="nav-link" href="${pageContext.request.contextPath}/view/course">Course</a>
                     </li>
                     <!--                <li class="nav-item">

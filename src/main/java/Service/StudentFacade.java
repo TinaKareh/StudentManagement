@@ -5,7 +5,10 @@
  */
 package Service;
 
+import Model.Institution;
+import Model.InstitutionCourse;
 import Model.Student;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -30,6 +33,11 @@ public class StudentFacade extends AbstractFacade<Student> {
         super(Student.class);
     }
     
-    
+     public List<Student> institutionStudents(Institution inst){
+         Query query = getEntityManager().createQuery("select a from Student a where a.institution = :inst");
+        query.setParameter("inst", inst);
+        
+        return (List<Student>) query.getResultList(); 
+    } 
     
 }
