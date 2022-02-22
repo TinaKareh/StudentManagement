@@ -51,10 +51,10 @@ public class EditInstitutionController extends HttpServlet {
 
         HttpServletRequest httpReq = (HttpServletRequest) request;
         HttpSession session = httpReq.getSession();
-        
+
         AuthUser user = (AuthUser) session.getAttribute("user");
         request.setAttribute("user", user);
-        
+
         Institution institution = institutionFacade.find(Long.parseLong(request.getParameter("institutionId")));
         request.setAttribute("institution", institution);
         getServletContext()
@@ -73,6 +73,7 @@ public class EditInstitutionController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         Institution inst = new Institution();
         String institution = request.getParameter("institution");
         inst = institutionFacade.addInstitution(institution);
@@ -80,9 +81,9 @@ public class EditInstitutionController extends HttpServlet {
             Institution stitution = institutionFacade.find(Long.parseLong(request.getParameter("instId")));
             stitution.setInstitutionName(institution);
             institutionFacade.edit(stitution);
-            response.sendRedirect(request.getContextPath() + "/view/institution");
+            response.sendRedirect(request.getContextPath() + "/view/institution?edited=1");
         } else {
-            request.getRequestDispatcher("/WEB-INF/institution/view_institutions.jsp").forward(request, response);
+            response.sendRedirect(request.getContextPath() + "/view/institution?edited=0");
         }
     }
 

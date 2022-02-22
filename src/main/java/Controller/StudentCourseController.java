@@ -44,7 +44,7 @@ public class StudentCourseController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Institution institution = facade.find(Long.parseLong(request.getParameter("idkl")));
-        List<InstitutionCourse> inst = institutionFacade.institutionCourses(institution);
+        List<InstitutionCourse> inst = institutionFacade.getCoursesByInstitution(institution);
         request.setAttribute("courses", inst);
         
     }

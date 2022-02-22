@@ -71,7 +71,7 @@
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="instId">Institution ID</label><span style="color: #0069d9;">*</span>
-                                <input name="instId" class="form-control" type="text"  id="instId" value="${institution.institutionId}" required="">
+                                <input name="institutionId" class="form-control" type="text"  id="instId" value="${institution.institutionId}" required="">
                             </div>
                             <div class="form-group">
                                 <label for="course">Add Courses</label><span style="color: #0069d9;">*</span><br>

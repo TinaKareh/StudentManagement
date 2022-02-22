@@ -17,6 +17,8 @@ import Service.StudentFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -53,22 +55,26 @@ public class EditStudentController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         HttpServletRequest httpReq = (HttpServletRequest) request;
         HttpSession session = httpReq.getSession();
-        
+
         AuthUser user = (AuthUser) session.getAttribute("user");
         request.setAttribute("user", user);
-        
+
         Institution institution = facade.find(Long.parseLong(request.getParameter("institutionId")));
-        List<InstitutionCourse> inst = institutionFacade.institutionCourses(institution);
+        List<InstitutionCourse> inst = institutionFacade.getCoursesByInstitution(institution);
+
         Student student = studentFacade.find(Long.parseLong(request.getParameter("studentId")));
+
         request.setAttribute("student", student);
         request.setAttribute("courses", inst);
+        request.setAttribute("institutions", facade.findAll());
         getServletContext()
                 .getRequestDispatcher("/WEB-INF/student/edit_student.jsp")
                 .forward(request, response);
     }
+    private static final Logger LOG = Logger.getLogger(EditStudentController.class.getName());
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -81,20 +87,19 @@ public class EditStudentController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         Student student = studentFacade.find(Long.parseLong(request.getParameter("student")));
-        String inst = request.getParameter("institution");
-        // Course course = courseFacade.find(Long.parseLong(request.getParameter("course")));
+        Institution inst = facade.find(Long.parseLong(request.getParameter("inst")));
+        Course course = courseFacade.find(Long.parseLong(request.getParameter("course")));
+
         student.setFirstName(request.getParameter("fname"));
         student.setMiddleName(request.getParameter("lname"));
         student.setSurname(request.getParameter("uname"));
-        student.setInstitution(facade.find(Long.parseLong(inst)));
+        student.setInstitution(inst);
+        student.setCourse(course);
         studentFacade.edit(student);
-        String text = "You have successfully edited the student details";
-        response.setContentType("text/plain");
-        response.setCharacterEncoding("UTF-8");
-        response.getWriter().write(text);
 
-        response.sendRedirect(request.getContextPath() + "/view/students");
+        response.sendRedirect(request.getContextPath() + "/view/students?edited=1");
 
     }
 

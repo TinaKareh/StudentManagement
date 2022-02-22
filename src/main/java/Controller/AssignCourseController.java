@@ -56,9 +56,9 @@ public class AssignCourseController extends HttpServlet {
         AuthUser user = (AuthUser) session.getAttribute("user");
         request.setAttribute("user", user);
         
-        List courses = courseFacade.findAll();
         Institution institution = institutionFacade.find(Long.parseLong(request.getParameter("institutionId")));
-        List<InstitutionCourse> inst = facade.institutionCourses(institution);
+        List courses = courseFacade.findAll();
+        List<InstitutionCourse> inst = facade.getCoursesByInstitution(institution);
         request.setAttribute("institution", institution);
         request.setAttribute("courses", courses);
         request.setAttribute("addedCourses", inst);
@@ -79,7 +79,8 @@ public class AssignCourseController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         InstitutionCourse institution = new InstitutionCourse();
-        Institution task = institutionFacade.find(Long.parseLong(request.getParameter("instId")));
+        String id =request.getParameter("institutionId");
+        Institution task = institutionFacade.find(Long.parseLong(request.getParameter("institutionId")));
         Course course = courseFacade.find(Long.parseLong(request.getParameter("course")));
         institution = facade.addCourse(task,course);
         if (institution == null) {
@@ -87,10 +88,10 @@ public class AssignCourseController extends HttpServlet {
                 inst.setInstitution(task);
                 inst.setCourse(course);
                 facade.create(inst);
-            response.sendRedirect(request.getContextPath() + "/assign/course?success=1");
+            response.sendRedirect(request.getContextPath() + "/assign/course?success=1&amp;institutionId="+id);
 
         } else {
-            response.sendRedirect(request.getContextPath() + "/assign/course?success=0");
+            response.sendRedirect(request.getContextPath() + "/assign/course?success=1&amp;institutionId="+id);
 
         }
 

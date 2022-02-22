@@ -5,13 +5,25 @@
  */
 package Controller;
 
+import Model.Institution;
+import Model.Student;
+import Service.CourseFacade;
+import Service.InstitutionCourseFacade;
+import Service.InstitutionFacade;
+import Service.StudentFacade;
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import static org.graalvm.compiler.hotspot.amd64.AMD64HotSpotMathIntrinsicOp.IntrinsicOpcode.LOG;
 
 /**
  *
@@ -20,9 +32,15 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "ManagementDashboardController", urlPatterns = {"/dashboard"})
 public class ManagementDashboardController extends HttpServlet {
 
- 
+    @EJB
+    private CourseFacade courseFacade;
+    @EJB
+    private InstitutionFacade institutionFacade;
+    @EJB
+    private StudentFacade studentFacade;
+    @EJB
+    private InstitutionCourseFacade facade;
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -34,8 +52,25 @@ public class ManagementDashboardController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       request.getRequestDispatcher("/WEB-INF/home/dashboard.jsp").forward(request, response);
+
+        Integer student = studentFacade.count();
+        Integer institution = institutionFacade.count();
+        Integer course = courseFacade.count();
+
+        List<Institution> inst = (List<Institution>) institutionFacade.getTotalCoursesAndStudents();
+        LOG.log(Level.INFO, String.valueOf(inst));
+            Gson json = new Gson();
+            String courseList = json.toJson(inst);
+            response.setContentType("text/html");
+            response.getWriter().write(courseList);
+
+        request.setAttribute("courses", course);
+        request.setAttribute("institutions", institution);
+        request.setAttribute("students", student);
+        request.setAttribute("graphs", inst);
+        request.getRequestDispatcher("/WEB-INF/home/dashboard.jsp").forward(request, response);
     }
+    private static final Logger LOG = Logger.getLogger(ManagementDashboardController.class.getName());
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -49,7 +84,5 @@ public class ManagementDashboardController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     }
-
-    
 
 }

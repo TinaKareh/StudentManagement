@@ -55,7 +55,7 @@ public class ViewInstitutionProfileController extends HttpServlet {
         request.setAttribute("user", user);
         
         Institution institution = institutionFacade.find(Long.parseLong(request.getParameter("institutionId")));
-        List<InstitutionCourse> inst = facade.institutionCourses(institution);
+        List<InstitutionCourse> inst = facade.getCoursesByInstitution(institution);
         List<Student> student = studentFacade.institutionStudents(institution);
         request.setAttribute("institution", institution);
         request.setAttribute("addedCourses", inst);

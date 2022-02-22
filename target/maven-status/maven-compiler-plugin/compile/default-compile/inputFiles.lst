@@ -1,4 +1,3 @@
-C:\Users\Futuristic Ltd\OneDrive\Documents\NetBeansProjects\student-management\StudentManagement\src\main\java\Controller\DeleteInstitutionController.java
 C:\Users\Futuristic Ltd\OneDrive\Documents\NetBeansProjects\student-management\StudentManagement\src\main\java\Service\CourseFacade.java
 C:\Users\Futuristic Ltd\OneDrive\Documents\NetBeansProjects\student-management\StudentManagement\src\main\java\Controller\IndexController.java
 C:\Users\Futuristic Ltd\OneDrive\Documents\NetBeansProjects\student-management\StudentManagement\src\main\java\Service\AuthUserFacade.java
@@ -14,20 +13,17 @@ C:\Users\Futuristic Ltd\OneDrive\Documents\NetBeansProjects\student-management\S
 C:\Users\Futuristic Ltd\OneDrive\Documents\NetBeansProjects\student-management\StudentManagement\src\main\java\Controller\RegisterUserController.java
 C:\Users\Futuristic Ltd\OneDrive\Documents\NetBeansProjects\student-management\StudentManagement\src\main\java\Controller\ViewCourseController.java
 C:\Users\Futuristic Ltd\OneDrive\Documents\NetBeansProjects\student-management\StudentManagement\src\main\java\Service\InstitutionFacade.java
-C:\Users\Futuristic Ltd\OneDrive\Documents\NetBeansProjects\student-management\StudentManagement\src\main\java\Controller\DeleteCourseController.java
 C:\Users\Futuristic Ltd\OneDrive\Documents\NetBeansProjects\student-management\StudentManagement\src\main\java\Controller\ViewInstitutionController.java
 C:\Users\Futuristic Ltd\OneDrive\Documents\NetBeansProjects\student-management\StudentManagement\src\main\java\Controller\ViewStudentsController.java
 C:\Users\Futuristic Ltd\OneDrive\Documents\NetBeansProjects\student-management\StudentManagement\src\main\java\Controller\LogInController.java
 C:\Users\Futuristic Ltd\OneDrive\Documents\NetBeansProjects\student-management\StudentManagement\src\main\java\Controller\ManagementDashboardController.java
 C:\Users\Futuristic Ltd\OneDrive\Documents\NetBeansProjects\student-management\StudentManagement\src\main\java\Controller\AssignCourseController.java
 C:\Users\Futuristic Ltd\OneDrive\Documents\NetBeansProjects\student-management\StudentManagement\src\main\java\Model\AuthUser.java
-C:\Users\Futuristic Ltd\OneDrive\Documents\NetBeansProjects\student-management\StudentManagement\src\main\java\Model\StudentCourse.java
 C:\Users\Futuristic Ltd\OneDrive\Documents\NetBeansProjects\student-management\StudentManagement\src\main\java\Controller\TransferStudentController.java
 C:\Users\Futuristic Ltd\OneDrive\Documents\NetBeansProjects\student-management\StudentManagement\src\main\java\Model\Users.java
 C:\Users\Futuristic Ltd\OneDrive\Documents\NetBeansProjects\student-management\StudentManagement\src\main\java\Model\Student.java
 C:\Users\Futuristic Ltd\OneDrive\Documents\NetBeansProjects\student-management\StudentManagement\src\main\java\Service\AbstractFacade.java
 C:\Users\Futuristic Ltd\OneDrive\Documents\NetBeansProjects\student-management\StudentManagement\src\main\java\Controller\EditStudentController.java
-C:\Users\Futuristic Ltd\OneDrive\Documents\NetBeansProjects\student-management\StudentManagement\src\main\java\Controller\DeleteStudentController.java
 C:\Users\Futuristic Ltd\OneDrive\Documents\NetBeansProjects\student-management\StudentManagement\src\main\java\Model\InstitutionCourse.java
 C:\Users\Futuristic Ltd\OneDrive\Documents\NetBeansProjects\student-management\StudentManagement\src\main\java\Controller\AddCourseController.java
 C:\Users\Futuristic Ltd\OneDrive\Documents\NetBeansProjects\student-management\StudentManagement\src\main\java\Controller\AddStudentController.java

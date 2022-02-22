@@ -53,6 +53,12 @@
             <c:if test="${param.success eq 1}">
                 <div class="alert alert-success">Course added successfully.</div>
             </c:if> 
+            <c:if test="${param.edited eq 0}">
+                <div class="alert alert-danger">A Course with the name exists!</div>
+            </c:if >
+            <c:if test="${param.edited eq 1}">
+                <div class="alert alert-success">Course edited successfully.</div>
+            </c:if>
             <div class="row">
 
                 <div class="col">

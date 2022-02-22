@@ -33,19 +33,25 @@ public class StudentFacade extends AbstractFacade<Student> {
     public StudentFacade() {
         super(Student.class);
     }
-    
-     public List<Student> institutionStudents(Institution inst){
-         Query query = getEntityManager().createQuery("select a from Student a where a.institution = :inst");
+
+    public List<Student> institutionStudents(Institution inst) {
+        Query query = getEntityManager().createQuery("select a from Student a where a.institution = :inst");
         query.setParameter("inst", inst);
-        
-        return (List<Student>) query.getResultList(); 
-    } 
-     
-        public List<Student> getStudentsByCourse(Course course){
-         Query query = getEntityManager().createQuery("select a from Student a where a.course = :course");
+
+        return (List<Student>) query.getResultList();
+    }
+
+    public List<Student> getStudentsByCourse(Course course) {
+        Query query = getEntityManager().createQuery("select a from Student a where a.course = :course");
         query.setParameter("course", course);
-        
-        return (List<Student>) query.getResultList(); 
-    } 
+
+        return (List<Student>) query.getResultList();
+    }
     
+   public void deleteStudent(Long studentId){
+       Query query = getEntityManager().createQuery("delete from Student where studentId=:studentId");
+       query.setParameter("studentId", studentId);
+   
+   }
+
 }

@@ -11,6 +11,7 @@ import Model.InstitutionCourse;
 import Service.InstitutionCourseFacade;
 import Service.InstitutionFacade;
 import Service.StudentFacade;
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -50,13 +51,13 @@ public class ViewStudentsController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         HttpServletRequest httpReq = (HttpServletRequest) request;
         HttpSession session = httpReq.getSession();
-        
+
         AuthUser user = (AuthUser) session.getAttribute("user");
         request.setAttribute("user", user);
-        
+
         LOG.log(Level.INFO, String.valueOf(studentFacade.findAll().size()));
         request.setAttribute("students", studentFacade.findAll());
         request.setAttribute("institutions", facade.findAll());

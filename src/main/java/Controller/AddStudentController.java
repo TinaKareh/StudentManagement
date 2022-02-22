@@ -6,13 +6,11 @@
 package Controller;
 
 import Model.Student;
-import Model.Course;
-import Model.Institution;
+import Service.CourseFacade;
+import Service.InstitutionCourseFacade;
 import Service.InstitutionFacade;
 import Service.StudentFacade;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -30,7 +28,13 @@ public class AddStudentController extends HttpServlet {
     @EJB
     private StudentFacade studentFacade;
     @EJB
-    private InstitutionFacade institutionFacade;
+    private InstitutionCourseFacade institutionFacade;
+    @EJB
+    private InstitutionFacade facade;
+    @EJB
+    private CourseFacade courseFacade;
+
+    
 
 
     /**
@@ -46,14 +50,15 @@ public class AddStudentController extends HttpServlet {
             throws ServletException, IOException {
         Student student = new Student();
         String inst = request.getParameter("institution");
+        String course = request.getParameter("course");
         student.setFirstName(request.getParameter("fname"));
         student.setMiddleName(request.getParameter("lname"));
         student.setSurname(request.getParameter("uname"));
         student.setStudentIndentification(request.getParameter("email"));
-        student.setInstitution(institutionFacade.find(Long.parseLong(inst)));
-
+        student.setInstitution(facade.find(Long.parseLong(inst)));
+        student.setCourse(courseFacade.find(Long.parseLong(course)));
         studentFacade.create(student);
-         response.sendRedirect(request.getContextPath() +"/view/students?success=1");
+        response.sendRedirect(request.getContextPath() + "/view/students?success=1");
     }
 
 }

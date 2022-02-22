@@ -11,8 +11,10 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
         <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
         <link rel="stylesheet" type="text/css" media="screen" href="${pageContext.request.contextPath}/resources/css/index.css" />
         <script src="${pageContext.request.contextPath}/resources/index/index.js"></script>
         <title>Student Management |Student</title>
@@ -21,8 +23,6 @@
     </head>
 
     <body>
-
-
         <div class="container" style="margin-top: 100px;">
 
             <nav class="navbar navbar-expand-sm bg-success navbar-dark fixed-top justify-content-between">
@@ -58,9 +58,10 @@
             <div class="row">
 
                 <div class="col">
-                    <button type="button" class="btn btn-success btn-sm mb-3" data-toggle="modal" data-target="#myModal">
+                    <button class="btn btn-success btn-sm mb-3" data-toggle="modal" data-target="#myModal">
                         Add Student
-                    </button>               </div>
+                    </button>               
+                </div>
                 <div class="col">
                     <input class="form-control mr-3" id="myInput" type="text" placeholder="Search..">
                 </div>
@@ -75,7 +76,6 @@
                             <h4 class="modal-title">Add Student</h4>
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                         </div>
-
                         <!-- Modal body -->
                         <div class="modal-body">
                             <form action="${pageContext.request.contextPath}/add/student" method="POST">
@@ -97,12 +97,21 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="institution">Institution</label><span style="color: #0069d9;">*</span><br>
-                                    <select name="institution" class="form-control"  style="width: 100%;"><c:forEach items="${institutions}" var="institution">
+                                    <select name="institution" id="institution" class="form-control">
+                                        <option value="">Select Institution</option>
+                                        <c:forEach items="${institutions}" var="institution">
                                             <option value="${institution.institutionId}">${institution.institutionName}</option>
-                                        </c:forEach></select>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="course">Course</label><span style="color: #0069d9;">*</span><br>
+                                    <select name="course" id="course" class="form-control">
+
+                                    </select>
                                 </div>
 
-                                <button class="btn btn-success btn-sm" style="width: 100%;"  type="submit">Submit</button>
+                                <button class="btn btn-success  mt-4 ml-1" style="width: 100%; " type="submit">Submit</button>
                             </form>
                         </div>
 
@@ -124,6 +133,7 @@
                             <th style=" font-style: oblique;">First Name</th>
                             <th style=" font-style: oblique;">Middle Name</th>
                             <th style=" font-style: oblique;">Surname</th>
+                            <th style=" font-style: oblique;">Course</th>
                             <th style=" font-style: oblique;">Institution</th>
                             <th style=" font-style: oblique;">Action</th>
                         </tr>
@@ -135,64 +145,53 @@
                                 <td>${report.firstName}</td> 
                                 <td>${report.middleName}</td>
                                 <td>${report.surname}</td>
+                                <td>${report.course.courseName}</td>
                                 <td>${report.institution.institutionName}</td>
                                 <td><div class="dropdown">
                                         <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown">Action
                                             <span class="caret"></span></button>
                                         <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/edit/student?studentId=${report.studentId}&institutionId=${report.institution.institutionId}">Edit</a></li>
+                                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/edit/student?studentId=${report.studentId}&amp;institutionId=${report.institution.institutionId}">Edit</a></li>
                                             <li><a class="dropdown-item" href="${pageContext.request.contextPath}/delete/institution?institutionId=${report.studentId}">Delete</a></li>
-                                            <li><a class="dropdown-item" href="#assignCourse" data-id="${report.institution.institutionId}">Assign Course</a></li>
                                         </ul>
                                     </div>
-                                    <script>
-                                        $('a[href$="#assignCourse"]').on("click", function () {
-                                            var ids = $(this).data('id');
-                                            $(".modal-body #idkl").val(ids);
-                                            $('#assignModal').modal('show');
-                                        });
-                                    </script>
-                                    <!-- The Modal -->
-                                    <div class="modal fade" id="assignModal">
-                                        <div class="modal-dialog modal-dialog-centered">
-                                            <div class="modal-content">
-
-                                                <!-- Modal Header -->
-                                                <div class="modal-header">
-                                                    <h4 class="modal-title">Assign Course</h4>
-                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                </div>
-
-                                                <!-- Modal body -->
-                                                <div class="modal-body">
-                                                    <input type="hidden" class="form-control" name="idkl" id="idkl" value="">
-                                                    <form action="${pageContext.request.contextPath}/add/student" method="POST">
-                                                        <div class="form-group">
-                                                            <label for="institution">Course</label><span style="color: #0069d9;">*</span><br>
-                                                            <select name="institution" class="form-control"  style="width: 100%;"><c:forEach items="${courses}" var="added">
-                                                                    <option value="${added.course.courseId}">${added.course.courseName}</option>
-                                                                </c:forEach></select>
-                                                        </div>
-
-                                                        <button class="btn btn-success btn-sm" style="width: 100%;"  type="submit">Submit</button>
-                                                    </form>
-                                                </div>
-
-                                                <!-- Modal footer -->
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
                                 </td>
-
                             </tr>
                         </c:forEach>
                     </tbody>
                 </table>
             </div>
         </div>
+        <script>
+            $(document).ready(function () {
+                $('#institution').change(function () {
+                    $('#course').find('option').remove();
+                    $('#course').append('<option>Select Course</option>');
+                    let institutionId = $('#institution').val();
+                    console.log(institutionId);
+                    let data = {
+                        id: institutionId
+                    };
+                    $.ajax({
+                        url: "${pageContext.request.contextPath}/register/user",
+                        method: "GET",
+                        data: data,
+                        success: function (data, textStatus, jqXHR) {
+                            console.log(data);
+                            let obj = $.parseJSON(data);
+                            $.each(obj, function (key, value) {
+                                $('#course').append('<option value="' + value.course.courseId + '">' + value.course.courseName + '</option>')
+                            });
+
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            $('#course').append('<option>Course Unavailable</option>');
+                        },
+                        cache: false
+                    });
+                });
+
+            });
+        </script>
     </body>
 </html>

@@ -45,6 +45,10 @@ public class Student implements Serializable {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Institution institution;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "course_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Course course;
   
 
     public Student() {
@@ -56,6 +60,14 @@ public class Student implements Serializable {
 
     public void setInstitution(Institution institution) {
         this.institution = institution;
+    }
+    
+     public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
     }
 
     public Long getStudentId() {

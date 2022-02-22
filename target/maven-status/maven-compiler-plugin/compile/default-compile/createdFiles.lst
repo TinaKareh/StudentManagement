@@ -1,5 +1,4 @@
 Controller\AddCourseController.class
-Model\StudentCourse.class
 Model\Institution.class
 Model\AuthUser_.class
 Model\Student.class
@@ -10,8 +9,6 @@ Controller\EditInstitutionController.class
 Controller\EditCourseController.class
 Controller\AssignCourseController.class
 Controller\StudentCourseController.class
-Controller\DeleteInstitutionController.class
-Controller\DeleteStudentController.class
 Controller\TransferStudentController.class
 Service\InstitutionFacade.class
 Controller\ViewCourseController.class
@@ -22,7 +19,6 @@ Controller\AddInstitutionController.class
 Model\Course_.class
 Service\StudentFacade.class
 Controller\IndexController.class
-Model\StudentCourse_.class
 Service\AuthUserFacade.class
 Model\AuthUser.class
 Model\Student_.class
@@ -31,7 +27,6 @@ Controller\ViewCourseProfileController.class
 Model\InstitutionCourse.class
 Controller\AutheticationController.class
 Controller\AddUserController.class
-Controller\DeleteCourseController.class
 Service\InstitutionCourseFacade.class
 Controller\ViewStudentsController.class
 Controller\ViewInstitutionProfileController.class

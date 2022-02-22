@@ -32,15 +32,15 @@ public class InstitutionCourseFacade extends AbstractFacade<InstitutionCourse> {
     public InstitutionCourseFacade() {
         super(InstitutionCourse.class);
     }
-    
-    public List<InstitutionCourse> institutionCourses(Institution inst){
-         Query query = getEntityManager().createQuery("select a from InstitutionCourse a where a.institution = :inst");
+
+    public List<InstitutionCourse> getCoursesByInstitution(Institution inst) {
+        Query query = getEntityManager().createQuery("select a,from InstitutionCourse a where a.institution = :inst");
         query.setParameter("inst", inst);
-        
-        return (List<InstitutionCourse>) query.getResultList(); 
+
+        return (List<InstitutionCourse>) query.getResultList();
     }
-    
-     public InstitutionCourse addCourse(Institution inst,Course course) {
+
+    public InstitutionCourse addCourse(Institution inst, Course course) {
 
         String jpql = "SELECT a FROM InstitutionCourse a WHERE a.institution = :inst and a.course = :course";
         Query query = getEntityManager().createQuery(jpql);
@@ -53,11 +53,12 @@ public class InstitutionCourseFacade extends AbstractFacade<InstitutionCourse> {
             return null;
         }
     }
-     public List<InstitutionCourse> getInstitutionsByCourse(Course course){
-         Query query = getEntityManager().createQuery("select a from InstitutionCourse a where a.course = :course");
+
+    public List<InstitutionCourse> getInstitutionsByCourse(Course course) {
+        Query query = getEntityManager().createQuery("select a from InstitutionCourse a where a.course = :course");
         query.setParameter("course", course);
-        
-        return (List<InstitutionCourse>) query.getResultList(); 
+
+        return (List<InstitutionCourse>) query.getResultList();
     }
-     
+
 }
