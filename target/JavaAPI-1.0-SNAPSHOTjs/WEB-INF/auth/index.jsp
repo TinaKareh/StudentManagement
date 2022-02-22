@@ -1,10 +1,11 @@
   
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <%-- 
     Document   : index
     Created on : 18 Feb 2022, 08:45:10
     Author     : Futuristic Ltd
 --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -19,17 +20,17 @@
         <title>Student Management | Login</title>
     </head>
     <body style="display: grid; place-items: center;min-height: 100vh; position: relative">
-        <div class ="container" style="position: relative; min-height: 80%;min-width: 60%; display: grid; place-items:center">
+        <div class ="container" style="position: relative; min-height: 50%;min-width: 30%; display: grid; place-items:center">
             <div class="login" style="
                  position: relative;
                  min-width: 100%;
                  margin-left: auto;
                  transform: translateX(25%);
                  ">
-                <fieldset>
+                <fieldset style="margin-right: 100px;">
                     <legend style="margin-bottom: 40px; font-size: 30px; font-weight: 600;">Log In</legend>
                     <c:if test="${param.success eq 0}">
-                        <div class="alert alert-danger">Wrong username or password.Please try again</div>
+                        <div style="margin-right: 300px;" class="alert alert-danger">Wrong email address or password.Please try again</div>
                     </c:if>
                     <form action="${pageContext.request.contextPath}/login" method="POST">
                         <div class="form-group">
@@ -40,7 +41,12 @@
                             <label for="password">Password</label><span style="color: #0069d9;">*</span>
                             <input name="password" class="form-control" type="password" style="width: 60%;" id="password" placeholder="Enter Password" required="">
                         </div>
+                        <div class="form-group">
                         <button class="btn btn-success btn-sm" style="width: 60%; " type="submit">Submit</button>
+                        </div>
+                        <div class="form-group">
+                        <p>Don't have an account? <a href="${pageContext.request.contextPath}/add/user" style="color:dodgerblue">Register</a>.</p>
+                        </div>
                     </form>
                 </fieldset>
             </div>

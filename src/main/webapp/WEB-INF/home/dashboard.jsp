@@ -3,7 +3,7 @@
     Created on : 18 Feb 2022, 08:42:21
     Author     : Futuristic Ltd
 --%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -13,13 +13,13 @@
         <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-        <link rel="stylesheet" type="text/css" media="screen" href="${pageContext.request.contextPath}/resources/index/style.css" />
         <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/font-awesome-line-awesome/css/all.min.css">
         <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/amcharts/3.21.15/amcharts.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/amcharts/3.21.15/serial.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/amcharts/3.21.15/light.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/amcharts/3.21.15/plugins/dataloader/dataloader.min.js"></script>
+        <link rel="stylesheet" type="text/css" media="screen" href="${pageContext.request.contextPath}/resources/index/style.css" />
         <title>Student Management | Dashboard</title>
     </head>
     <body>
@@ -81,26 +81,31 @@
                     <div class="card ">
                         <div class="card-body text-center">
                             <h4 class="card-title text-success">Total Institutions</h4>
-                            <p><span class="fas fa-university"></span><span>${institutions}</span></p>
+                            <span class="fas fa-university"></span><h3>${institutions}</h3>
                         </div>
                     </div>
                     <div class="card">
                         <div class="card-body text-center">
                             <h4 class="card-title text-success">Total Courses</h4>
-                            <p><span class="fas fa-book-open"></span><span>${courses}</span></p>
+                            <span class="fas fa-book-open"></span><h3>${courses}</h3>
                         </div>
                     </div>
                     <div class="card">
                         <div class="card-body text-center">
-                            <h4 class="card-title text-success">Total Student</h4>
-                            <p><span class="fas fa-user"></span><span>${students}</span></p>
+                            <h4 class="card-title text-success">Total Students</h4>
+                            <span class="fas fa-user"></span><h3>${students}</h3>
                         </div>
                     </div>
-
                 </div>
                 <div class="mt-3">
                     <div id="chartdiv" style="
-                         width		: 100%;
+                         height		: 360px;
+                         font-size	: 11px;">
+
+                    </div>
+                </div>
+                <div>
+                    <div id="chartdiv_course" style="
                          height		: 360px;
                          font-size	: 11px;">
 
@@ -113,59 +118,34 @@
             $('#sidebarCollapse').on('click', function () {
             $('#sidebar').toggleClass('active');
             });
-            });
-            let obj;
-            $.ajax({
-            url: "${pageContext.request.contextPath}/dashboard",
-                    method: "GET",
-                    data: data,
-                    success: function (data, textStatus, jqXHR) {
-                    console.log(data);
-                    obj = $.parseJSON(data);
-//                            $.each(obj, function (key, value) {
-//                                $('#course').append('<option value="' + value.course.courseId + '">' + value.course.courseName + '</option>')
-//                            });
-
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                    $('#course').append('<option>Course Unavailable</option>');
-                    },
-                    cache: false
-            });
+            
+            
             var chart = AmCharts.makeChart("chartdiv", {
             "type": "serial",
                     "theme": "light",
                     "titles": [{
-                    "text": "Total Course and Students per Institution"
+                    "text": "Total Students per Institution"
                     },
                     {
                     "text": '',
                             "bold": false
                     }],
                     "dataProvider": [
-                            $.each(obj, function (key, value) {
-                            {
-                            institution: "value.institutionName",
-                                    course: "value.course",
-                                    student:"value.student"
-                            },
-                            });
-                    ],
-                    //                "gridAboveGraphs": true,
-                    "graphs": [{
-                    "title": "Total Courses:[[value]]",
-                            "id": "AmGraph-1",
-                            "fillAlphas": 0.9,
-                            "lineAlpha": 0.2,
-                            "type": "column",
-                            "valueField": "course"
+            <c:forEach items="${graphs}" var="item">
+                    {
+                    institution: "${item[0]}",
+                            student: "${item[1]}"
                     },
+            </c:forEach>
+                    ],
+                    "gridAboveGraphs": true,
+                    "graphs": [
                     {
                     "balloonText": "Total Students:[[value]]",
                             "fillAlphas": 0.9,
                             "id": "AmGraph-2",
                             "lineAlpha": 0.2,
-                            "title": "Earned Hours",
+                            "title": "Total Students",
                             "type": "column",
                             "valueField": "student"
                     }, ],
@@ -175,14 +155,63 @@
                             "zoomable": true
                     },
                     "categoryField": "institution",
-                    "categoryAxis": {
-                    // ... other category axis settings
-                    "labelRotation": 90
-                    },
+//                    "categoryAxis": {
+//                    // ... other category axis settings
+//                    "labelRotation": 90
+//                    },
                     "export": {
                     "enabled": true,
-                            "fileName": "Total Course and Students per Institution"
+                            "fileName": "Total Students per Institution"
                     }
+            });
+            });
+        </script>
+        <script>
+            $(document).ready(function () {
+             AmCharts.makeChart("chartdiv_course", {
+                    "type": "serial",
+                    "theme": "light",
+                    "titles": [{
+                    "text": "Total Courses per Institution"
+                    },
+                    {
+                    "text": '',
+                            "bold": false
+                    }],
+                    "dataProvider": [
+            <c:forEach items="${totals}" var="item">
+                    {
+                    institution: "${item[0]}",
+                            course: "${item[1]}"
+                    },
+            </c:forEach>
+                    ],
+                    "gridAboveGraphs": true,
+                    "graphs": [
+                    {
+                    "balloonText": "Total Courses:[[value]]",
+                            "fillAlphas": 0.9,
+                            "id": "AmGraph-2",
+                            "lineAlpha": 0.2,
+                            "title": "Total Courses",
+                            "type": "column",
+                            "valueField": "course"
+                    }, ],
+                    "chartCursor": {
+                    "categoryBalloonEnabled": false,
+                            "cursorAlpha": 0,
+                            "zoomable": true
+                    },
+                    "categoryField": "institution",
+//                    "categoryAxis": {
+//                    // ... other category axis settings
+//                    "labelRotation": 90
+//                    },
+                    "export": {
+                    "enabled": true,
+                    "fileName": "Total Courses per Institution"
+                    }
+            });
             });
         </script>
     </body>

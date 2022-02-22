@@ -48,10 +48,6 @@ public class StudentFacade extends AbstractFacade<Student> {
         return (List<Student>) query.getResultList();
     }
     
-   public void deleteStudent(Long studentId){
-       Query query = getEntityManager().createQuery("delete from Student where studentId=:studentId");
-       query.setParameter("studentId", studentId);
-   
-   }
+ 
 
 }

@@ -44,13 +44,23 @@ public class InstitutionFacade extends AbstractFacade<Institution> {
         }
     }
 
-    public List<Institution> getTotalCoursesAndStudents() {
-        String jpql = "select a.institutionName,count(s.studentId) as student,count(c.course) as course from Institution a left join Student s on s.institution = a left join InstitutionCourse c on c.institution = a group by a.institutionName";
+    public List<Institution> getTotalCourses() {
+        String jpql = "select a.institutionName,count(c.course) from Institution a left join InstitutionCourse c on c.institution = a group by a.institutionName";
         
               Query query= getEntityManager().createQuery(jpql);
               List list = query.getResultList();
 
         return list;
     }
+    
+     public List<Institution> getTotalStudents() {
+        String jpql = "select a.institutionName,count(s.studentId) from Institution a left join Student s on s.institution = a group by a.institutionName";
+        
+              Query query= getEntityManager().createQuery(jpql);
+              List list = query.getResultList();
+
+        return list;
+    }
+    
 
 }

@@ -5,8 +5,14 @@
  */
 package Controller;
 
+import Model.Institution;
+import Service.InstitutionFacade;
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+import java.util.logging.Level;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,6 +25,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "AutheticationController", urlPatterns = {"/AutheticationController"})
 public class AutheticationController extends HttpServlet {
+
+    @EJB
+    private InstitutionFacade institutionFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,7 +46,7 @@ public class AutheticationController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AutheticationController</title>");            
+            out.println("<title>Servlet AutheticationController</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet AutheticationController at " + request.getContextPath() + "</h1>");
@@ -58,7 +67,7 @@ public class AutheticationController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+     
     }
 
     /**

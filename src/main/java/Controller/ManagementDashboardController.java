@@ -57,17 +57,15 @@ public class ManagementDashboardController extends HttpServlet {
         Integer institution = institutionFacade.count();
         Integer course = courseFacade.count();
 
-        List<Institution> inst = (List<Institution>) institutionFacade.getTotalCoursesAndStudents();
+        List<Institution> inst = (List<Institution>) institutionFacade.getTotalStudents();
+        List<Institution> courseGraph = institutionFacade.getTotalCourses();
         LOG.log(Level.INFO, String.valueOf(inst));
-            Gson json = new Gson();
-            String courseList = json.toJson(inst);
-            response.setContentType("text/html");
-            response.getWriter().write(courseList);
 
         request.setAttribute("courses", course);
         request.setAttribute("institutions", institution);
         request.setAttribute("students", student);
         request.setAttribute("graphs", inst);
+        request.setAttribute("totals", courseGraph);
         request.getRequestDispatcher("/WEB-INF/home/dashboard.jsp").forward(request, response);
     }
     private static final Logger LOG = Logger.getLogger(ManagementDashboardController.class.getName());

@@ -9,6 +9,8 @@ Controller\EditInstitutionController.class
 Controller\EditCourseController.class
 Controller\AssignCourseController.class
 Controller\StudentCourseController.class
+Controller\DeleteInstitutionController.class
+Controller\DeleteStudentController.class
 Controller\TransferStudentController.class
 Service\InstitutionFacade.class
 Controller\ViewCourseController.class
@@ -27,6 +29,7 @@ Controller\ViewCourseProfileController.class
 Model\InstitutionCourse.class
 Controller\AutheticationController.class
 Controller\AddUserController.class
+Controller\DeleteCourseController.class
 Service\InstitutionCourseFacade.class
 Controller\ViewStudentsController.class
 Controller\ViewInstitutionProfileController.class

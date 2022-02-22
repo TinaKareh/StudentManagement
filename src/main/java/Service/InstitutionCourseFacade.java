@@ -34,7 +34,7 @@ public class InstitutionCourseFacade extends AbstractFacade<InstitutionCourse> {
     }
 
     public List<InstitutionCourse> getCoursesByInstitution(Institution inst) {
-        Query query = getEntityManager().createQuery("select a,from InstitutionCourse a where a.institution = :inst");
+        Query query = getEntityManager().createQuery("select a from InstitutionCourse a where a.institution = :inst");
         query.setParameter("inst", inst);
 
         return (List<InstitutionCourse>) query.getResultList();
@@ -59,6 +59,18 @@ public class InstitutionCourseFacade extends AbstractFacade<InstitutionCourse> {
         query.setParameter("course", course);
 
         return (List<InstitutionCourse>) query.getResultList();
+    }
+
+    public List<InstitutionCourse> checkInstitutionCourseAssignment(Institution institution) {
+        String jpql = "SELECT a FROM InstitutionCourse a WHERE a.institution = :inst";
+        Query query = getEntityManager().createQuery(jpql);
+        query.setParameter("inst", institution);
+        
+        try {
+            return (List<InstitutionCourse>) query.getResultList();
+        } catch (Exception x) {
+            return null;
+        }
     }
 
 }
