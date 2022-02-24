@@ -23,9 +23,8 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "DeleteStudentController", urlPatterns = {"/delete/student"})
 public class DeleteStudentController extends HttpServlet {
 
-   @EJB
-   private StudentFacade studentFacade;
-   
+    @EJB
+    private StudentFacade studentFacade;
 
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -38,9 +37,12 @@ public class DeleteStudentController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Student student = studentFacade.find(Long.parseLong(request.getParameter("institutionId")));
-        studentFacade.remove(student);
-        response.sendRedirect(request.getContextPath() + "/view/students?deleted=1");
+        try {
+            Student student = studentFacade.find(Long.parseLong(request.getParameter("institutionId")));
+            studentFacade.remove(student);
+            response.sendRedirect(request.getContextPath() + "/view/students?deleted=1");
+        } catch (Exception x) {
+        }
     }
 
     /**
@@ -54,8 +56,7 @@ public class DeleteStudentController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
     }
 
-  
 }

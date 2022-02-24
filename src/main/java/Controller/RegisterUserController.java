@@ -46,15 +46,17 @@ public class RegisterUserController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        try (PrintWriter out = response.getWriter()) {
-            Institution inst = facade.find(Long.parseLong(request.getParameter("id")));
-            List<InstitutionCourse> courses = institutionFacade.getCoursesByInstitution(inst);
-            Gson json = new Gson();
-            String courseList = json.toJson(courses);
-            response.setContentType("text/html");
-            response.getWriter().write(courseList);
+        try {
+            try (PrintWriter out = response.getWriter()) {
+                Institution inst = facade.find(Long.parseLong(request.getParameter("id")));
+                List<InstitutionCourse> courses = institutionFacade.getCoursesByInstitution(inst);
+                Gson json = new Gson();
+                String courseList = json.toJson(courses);
+                response.setContentType("text/html");
+                response.getWriter().write(courseList);
+            }
+        } catch (Exception x) {
         }
-        }
-
     }
+
+}

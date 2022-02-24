@@ -43,7 +43,6 @@ public class EditStudentController extends HttpServlet {
     @EJB
     private CourseFacade courseFacade;
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -55,24 +54,26 @@ public class EditStudentController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        try {
+            HttpServletRequest httpReq = (HttpServletRequest) request;
+            HttpSession session = httpReq.getSession();
 
-        HttpServletRequest httpReq = (HttpServletRequest) request;
-        HttpSession session = httpReq.getSession();
+            AuthUser user = (AuthUser) session.getAttribute("user");
+            request.setAttribute("user", user);
 
-        AuthUser user = (AuthUser) session.getAttribute("user");
-        request.setAttribute("user", user);
+            Institution institution = facade.find(Long.parseLong(request.getParameter("institutionId")));
+            List<InstitutionCourse> inst = institutionFacade.getCoursesByInstitution(institution);
 
-        Institution institution = facade.find(Long.parseLong(request.getParameter("institutionId")));
-        List<InstitutionCourse> inst = institutionFacade.getCoursesByInstitution(institution);
+            Student student = studentFacade.find(Long.parseLong(request.getParameter("studentId")));
 
-        Student student = studentFacade.find(Long.parseLong(request.getParameter("studentId")));
-
-        request.setAttribute("student", student);
-        request.setAttribute("courses", inst);
-        request.setAttribute("institutions", facade.findAll());
-        getServletContext()
-                .getRequestDispatcher("/WEB-INF/student/edit_student.jsp")
-                .forward(request, response);
+            request.setAttribute("student", student);
+            request.setAttribute("courses", inst);
+            request.setAttribute("institutions", facade.findAll());
+            getServletContext()
+                    .getRequestDispatcher("/WEB-INF/student/edit_student.jsp")
+                    .forward(request, response);
+        } catch (Exception x) {
+        }
     }
     private static final Logger LOG = Logger.getLogger(EditStudentController.class.getName());
 
@@ -88,19 +89,22 @@ public class EditStudentController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        Student student = studentFacade.find(Long.parseLong(request.getParameter("student")));
-        Institution inst = facade.find(Long.parseLong(request.getParameter("inst")));
-        Course course = courseFacade.find(Long.parseLong(request.getParameter("course")));
+        try {
+            Student student = studentFacade.find(Long.parseLong(request.getParameter("student")));
+            Institution inst = facade.find(Long.parseLong(request.getParameter("inst")));
+            Course course = courseFacade.find(Long.parseLong(request.getParameter("course")));
 
-        student.setFirstName(request.getParameter("fname"));
-        student.setMiddleName(request.getParameter("lname"));
-        student.setSurname(request.getParameter("uname"));
-        student.setInstitution(inst);
-        student.setCourse(course);
-        studentFacade.edit(student);
+            student.setFirstName(request.getParameter("fname"));
+            student.setMiddleName(request.getParameter("lname"));
+            student.setSurname(request.getParameter("uname"));
+            student.setInstitution(inst);
+            student.setCourse(course);
+            studentFacade.edit(student);
 
-        response.sendRedirect(request.getContextPath() + "/view/students?edited=1");
+            response.sendRedirect(request.getContextPath() + "/view/students?edited=1");
 
+        } catch (Exception x) {
+        }
     }
 
 }

@@ -54,15 +54,18 @@ public class LogInController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        AuthUser authUser = authFacade.getUserByEmailAddressAndPassword(request.getParameter("email"), request.getParameter("password"));
-        if (authUser == null) {
-            response.sendRedirect(request.getContextPath() +"?success=0");
-        } else {
-            HttpSession session = request.getSession(true);
-            session.setAttribute("user", authUser);
-            response.sendRedirect(request.getContextPath() +"/dashboard");
-        }
+        try {
+            AuthUser authUser = authFacade.getUserByEmailAddressAndPassword(request.getParameter("email"), request.getParameter("password"));
+            if (authUser == null) {
+                response.sendRedirect(request.getContextPath() + "?success=0");
+            } else {
+                HttpSession session = request.getSession(true);
+                session.setAttribute("user", authUser);
+                response.sendRedirect(request.getContextPath() + "/dashboard");
+            }
 
+        } catch (Exception x) {
+        }
     }
 
 }

@@ -55,6 +55,7 @@ public class AddUserController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+      try{
         AuthUser authUser = new AuthUser();
         authUser.setFirstName(request.getParameter("fname"));
         authUser.setLastName(request.getParameter("lname"));
@@ -67,8 +68,9 @@ public class AddUserController extends HttpServlet {
 
        // LOG.log(Level.INFO, authUser.toString());
         response.sendRedirect(request.getContextPath());
+    } catch (Exception x) {
+        }
     }
-
     private static final Logger LOG = Logger.getLogger(AddUserController.class.getName());
 
 }

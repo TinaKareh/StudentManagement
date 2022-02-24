@@ -38,18 +38,19 @@ public class AddInstitutionController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        Institution inst = new Institution();
-        String institution = request.getParameter("institution");
-        inst = institutionFacade.addInstitution(institution);
-        if (inst == null) {
-            Institution stitution = new Institution();
-            stitution.setInstitutionName(institution);
-            institutionFacade.create(stitution);
-            response.sendRedirect(request.getContextPath() + "/view/institution?success=1");
-        } else {
-            response.sendRedirect(request.getContextPath() + "/view/institution?success=0");
+        try {
+            Institution inst = new Institution();
+            String institution = request.getParameter("institution");
+            inst = institutionFacade.addInstitution(institution);
+            if (inst == null) {
+                Institution stitution = new Institution();
+                stitution.setInstitutionName(institution);
+                institutionFacade.create(stitution);
+                response.sendRedirect(request.getContextPath() + "/view/institution?success=1");
+            } else {
+                response.sendRedirect(request.getContextPath() + "/view/institution?success=0");
+            }
+        } catch (Exception x) {
         }
     }
-
 }

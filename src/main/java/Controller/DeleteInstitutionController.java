@@ -42,7 +42,8 @@ public class DeleteInstitutionController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       Institution inst = institutionFacade.find(Long.parseLong(request.getParameter("institutionId")));
+      try{
+        Institution inst = institutionFacade.find(Long.parseLong(request.getParameter("institutionId")));
        
        List<InstitutionCourse> course = facade.checkInstitutionCourseAssignment(inst);
        if(course == null){
@@ -52,6 +53,8 @@ public class DeleteInstitutionController extends HttpServlet {
            response.sendRedirect(request.getContextPath() + "/view/institution?deleted=0");
        }
        
+    }catch (Exception x) {
+        }
     }
 
     /**

@@ -6,12 +6,9 @@
 package Controller;
 
 import Model.AuthUser;
-import Model.Institution;
 import Service.AuthUserFacade;
 import Service.InstitutionFacade;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -46,19 +43,21 @@ public class ViewInstitutionController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        try {
+            HttpServletRequest httpReq = (HttpServletRequest) request;
+            HttpSession session = httpReq.getSession();
 
-        HttpServletRequest httpReq = (HttpServletRequest) request;
-        HttpSession session = httpReq.getSession();
-        
-        AuthUser user = (AuthUser) session.getAttribute("user");
-        request.setAttribute("user", user);
-        
-        LOG.log(Level.INFO, String.valueOf(institutionFacade.findAll().size()));
-        request.setAttribute("institutions", institutionFacade.findAll());
+            AuthUser user = (AuthUser) session.getAttribute("user");
+            request.setAttribute("user", user);
 
-        getServletContext()
-                .getRequestDispatcher("/WEB-INF/institution/view_institutions.jsp")
-                .forward(request, response);
+            LOG.log(Level.INFO, String.valueOf(institutionFacade.findAll().size()));
+            request.setAttribute("institutions", institutionFacade.findAll());
+
+            getServletContext()
+                    .getRequestDispatcher("/WEB-INF/institution/view_institutions.jsp")
+                    .forward(request, response);
+        } catch (Exception x) {
+        }
     }
     private static final Logger LOG = Logger.getLogger(ViewInstitutionController.class.getName());
 

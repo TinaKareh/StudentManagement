@@ -46,18 +46,20 @@ public class EditCourseController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        HttpServletRequest httpReq = (HttpServletRequest) request;
-        HttpSession session = httpReq.getSession();
-        
-        AuthUser user = (AuthUser) session.getAttribute("user");
-        request.setAttribute("user", user);
-        
-       Course course = courseFacade.find(Long.parseLong(request.getParameter("institutionId")));
-        request.setAttribute("course", course);
-        getServletContext()
-                .getRequestDispatcher("/WEB-INF/course/edit_course.jsp")
-                .forward(request, response);
+        try {
+            HttpServletRequest httpReq = (HttpServletRequest) request;
+            HttpSession session = httpReq.getSession();
+
+            AuthUser user = (AuthUser) session.getAttribute("user");
+            request.setAttribute("user", user);
+
+            Course course = courseFacade.find(Long.parseLong(request.getParameter("institutionId")));
+            request.setAttribute("course", course);
+            getServletContext()
+                    .getRequestDispatcher("/WEB-INF/course/edit_course.jsp")
+                    .forward(request, response);
+        } catch (Exception x) {
+        }
     }
 
     /**
@@ -71,19 +73,21 @@ public class EditCourseController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         Course course = new Course();
-        String co = request.getParameter("course");
-        course =courseFacade.addCourse(co);
-        
-        if(course == null){
-            Course newCourse = courseFacade.find(Long.parseLong(request.getParameter("instId")));
-            newCourse.setCourseName(co);
-            courseFacade.edit(newCourse);
-            response.sendRedirect(request.getContextPath() + "/view/course/?edited=1");
-        }else{
-            response.sendRedirect(request.getContextPath() + "/view/course?edited=0");
+        try {
+            Course course = new Course();
+            String co = request.getParameter("course");
+            course = courseFacade.addCourse(co);
+
+            if (course == null) {
+                Course newCourse = courseFacade.find(Long.parseLong(request.getParameter("instId")));
+                newCourse.setCourseName(co);
+                courseFacade.edit(newCourse);
+                response.sendRedirect(request.getContextPath() + "/view/course/?edited=1");
+            } else {
+                response.sendRedirect(request.getContextPath() + "/view/course?edited=0");
+            }
+        } catch (Exception x) {
         }
     }
-
 
 }

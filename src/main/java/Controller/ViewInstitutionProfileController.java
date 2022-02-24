@@ -30,12 +30,12 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "ViewInstitutionProfileController", urlPatterns = {"/view/institution/profile"})
 public class ViewInstitutionProfileController extends HttpServlet {
 
-   @EJB
-   private InstitutionFacade institutionFacade;
-   @EJB
-   private InstitutionCourseFacade facade;
-   @EJB
-   private StudentFacade studentFacade;
+    @EJB
+    private InstitutionFacade institutionFacade;
+    @EJB
+    private InstitutionCourseFacade facade;
+    @EJB
+    private StudentFacade studentFacade;
 
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -48,21 +48,25 @@ public class ViewInstitutionProfileController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpServletRequest httpReq = (HttpServletRequest) request;
-        HttpSession session = httpReq.getSession();
-        
-        AuthUser user = (AuthUser) session.getAttribute("user");
-        request.setAttribute("user", user);
-        
-        Institution institution = institutionFacade.find(Long.parseLong(request.getParameter("institutionId")));
-        List<InstitutionCourse> inst = facade.getCoursesByInstitution(institution);
-        List<Student> student = studentFacade.institutionStudents(institution);
-        request.setAttribute("institution", institution);
-        request.setAttribute("addedCourses", inst);
-        request.setAttribute("students", student);
-        getServletContext()
-                .getRequestDispatcher("/WEB-INF/institution/view_profile.jsp")
-                .forward(request, response);
+
+        try {
+            HttpServletRequest httpReq = (HttpServletRequest) request;
+            HttpSession session = httpReq.getSession();
+
+            AuthUser user = (AuthUser) session.getAttribute("user");
+            request.setAttribute("user", user);
+
+            Institution institution = institutionFacade.find(Long.parseLong(request.getParameter("institutionId")));
+            List<InstitutionCourse> inst = facade.getCoursesByInstitution(institution);
+            List<Student> student = studentFacade.institutionStudents(institution);
+            request.setAttribute("institution", institution);
+            request.setAttribute("addedCourses", inst);
+            request.setAttribute("students", student);
+            getServletContext()
+                    .getRequestDispatcher("/WEB-INF/institution/view_profile.jsp")
+                    .forward(request, response);
+        } catch (Exception x) {
+        }
     }
 
     /**
@@ -77,7 +81,5 @@ public class ViewInstitutionProfileController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     }
-
-  
 
 }

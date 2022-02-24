@@ -42,7 +42,7 @@ public class AddCourseController extends HttpServlet {
         Course course = new Course();
         String co = request.getParameter("name");
         course =courseFacade.addCourse(co);
-        
+      try{  
         if(course == null){
             Course newCourse = new Course();
             newCourse.setCourseName(co);
@@ -51,7 +51,8 @@ public class AddCourseController extends HttpServlet {
         }else{
             response.sendRedirect(request.getContextPath() + "/view/course?success=0");
         }
-       
+      } catch (Exception x) {
+        }  
     }
 
   

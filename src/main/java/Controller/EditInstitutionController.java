@@ -7,13 +7,10 @@ package Controller;
 
 import Model.AuthUser;
 import Model.Institution;
-import Model.InstitutionCourse;
 import Service.CourseFacade;
 import Service.InstitutionCourseFacade;
 import Service.InstitutionFacade;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -48,18 +45,20 @@ public class EditInstitutionController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        try {
+            HttpServletRequest httpReq = (HttpServletRequest) request;
+            HttpSession session = httpReq.getSession();
 
-        HttpServletRequest httpReq = (HttpServletRequest) request;
-        HttpSession session = httpReq.getSession();
+            AuthUser user = (AuthUser) session.getAttribute("user");
+            request.setAttribute("user", user);
 
-        AuthUser user = (AuthUser) session.getAttribute("user");
-        request.setAttribute("user", user);
-
-        Institution institution = institutionFacade.find(Long.parseLong(request.getParameter("institutionId")));
-        request.setAttribute("institution", institution);
-        getServletContext()
-                .getRequestDispatcher("/WEB-INF/institution/edit_institution.jsp")
-                .forward(request, response);
+            Institution institution = institutionFacade.find(Long.parseLong(request.getParameter("institutionId")));
+            request.setAttribute("institution", institution);
+            getServletContext()
+                    .getRequestDispatcher("/WEB-INF/institution/edit_institution.jsp")
+                    .forward(request, response);
+        } catch (Exception x) {
+        }
     }
 
     /**
@@ -73,17 +72,19 @@ public class EditInstitutionController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        Institution inst = new Institution();
-        String institution = request.getParameter("institution");
-        inst = institutionFacade.addInstitution(institution);
-        if (inst == null) {
-            Institution stitution = institutionFacade.find(Long.parseLong(request.getParameter("instId")));
-            stitution.setInstitutionName(institution);
-            institutionFacade.edit(stitution);
-            response.sendRedirect(request.getContextPath() + "/view/institution?edited=1");
-        } else {
-            response.sendRedirect(request.getContextPath() + "/view/institution?edited=0");
+        try {
+            Institution inst = new Institution();
+            String institution = request.getParameter("institution");
+            inst = institutionFacade.addInstitution(institution);
+            if (inst == null) {
+                Institution stitution = institutionFacade.find(Long.parseLong(request.getParameter("instId")));
+                stitution.setInstitutionName(institution);
+                institutionFacade.edit(stitution);
+                response.sendRedirect(request.getContextPath() + "/view/institution?edited=1");
+            } else {
+                response.sendRedirect(request.getContextPath() + "/view/institution?edited=0");
+            }
+        } catch (Exception x) {
         }
     }
 

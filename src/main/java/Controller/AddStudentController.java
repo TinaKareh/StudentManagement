@@ -48,6 +48,7 @@ public class AddStudentController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+       try{ 
         Student student = new Student();
         String inst = request.getParameter("institution");
         String course = request.getParameter("course");
@@ -59,6 +60,7 @@ public class AddStudentController extends HttpServlet {
         student.setCourse(courseFacade.find(Long.parseLong(course)));
         studentFacade.create(student);
         response.sendRedirect(request.getContextPath() + "/view/students?success=1");
+    } catch (Exception x) {
+        }
     }
-
 }

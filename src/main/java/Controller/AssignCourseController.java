@@ -49,13 +49,13 @@ public class AssignCourseController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         HttpServletRequest httpReq = (HttpServletRequest) request;
         HttpSession session = httpReq.getSession();
-        
+
         AuthUser user = (AuthUser) session.getAttribute("user");
         request.setAttribute("user", user);
-        
+
         Institution institution = institutionFacade.find(Long.parseLong(request.getParameter("institutionId")));
         List courses = courseFacade.findAll();
         List<InstitutionCourse> inst = facade.getCoursesByInstitution(institution);
@@ -79,20 +79,24 @@ public class AssignCourseController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         InstitutionCourse institution = new InstitutionCourse();
-        String id =request.getParameter("institutionId");
+        String id = request.getParameter("institutionId");
         Institution task = institutionFacade.find(Long.parseLong(request.getParameter("institutionId")));
         Course course = courseFacade.find(Long.parseLong(request.getParameter("course")));
-        institution = facade.addCourse(task,course);
+        institution = facade.addCourse(task, course);
         if (institution == null) {
             InstitutionCourse inst = new InstitutionCourse();
-                inst.setInstitution(task);
-                inst.setCourse(course);
-                facade.create(inst);
-            response.sendRedirect(request.getContextPath() + "/assign/course?success=1&amp;institutionId="+id);
-
+            inst.setInstitution(task);
+            inst.setCourse(course);
+            facade.create(inst);
+            try {
+                response.sendRedirect(request.getContextPath() + "/assign/course?success=1&institutionId=" + id);
+            } catch (Exception x) {
+            }
         } else {
-            response.sendRedirect(request.getContextPath() + "/assign/course?success=1&amp;institutionId="+id);
-
+            try {
+                response.sendRedirect(request.getContextPath() + "/assign/course?success=1&institutionId=" + id);
+            } catch (Exception x) {
+            }
         }
 
     }

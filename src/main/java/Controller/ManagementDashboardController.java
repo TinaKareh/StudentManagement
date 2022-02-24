@@ -52,21 +52,23 @@ public class ManagementDashboardController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        try {
+            Integer student = studentFacade.count();
+            Integer institution = institutionFacade.count();
+            Integer course = courseFacade.count();
 
-        Integer student = studentFacade.count();
-        Integer institution = institutionFacade.count();
-        Integer course = courseFacade.count();
+            List<Institution> inst = (List<Institution>) institutionFacade.getTotalStudents();
+            List<Institution> courseGraph = institutionFacade.getTotalCourses();
+            LOG.log(Level.INFO, String.valueOf(inst));
 
-        List<Institution> inst = (List<Institution>) institutionFacade.getTotalStudents();
-        List<Institution> courseGraph = institutionFacade.getTotalCourses();
-        LOG.log(Level.INFO, String.valueOf(inst));
-
-        request.setAttribute("courses", course);
-        request.setAttribute("institutions", institution);
-        request.setAttribute("students", student);
-        request.setAttribute("graphs", inst);
-        request.setAttribute("totals", courseGraph);
-        request.getRequestDispatcher("/WEB-INF/home/dashboard.jsp").forward(request, response);
+            request.setAttribute("courses", course);
+            request.setAttribute("institutions", institution);
+            request.setAttribute("students", student);
+            request.setAttribute("graphs", inst);
+            request.setAttribute("totals", courseGraph);
+            request.getRequestDispatcher("/WEB-INF/home/dashboard.jsp").forward(request, response);
+        } catch (Exception x) {
+        }
     }
     private static final Logger LOG = Logger.getLogger(ManagementDashboardController.class.getName());
 

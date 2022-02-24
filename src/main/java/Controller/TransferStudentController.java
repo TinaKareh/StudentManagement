@@ -51,15 +51,18 @@ public class TransferStudentController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Student student = studentFacade.find(Long.parseLong(request.getParameter("student")));
-        Institution inst = facade.find(Long.parseLong(request.getParameter("stitution")));
-        Course course = courseFacade.find(Long.parseLong(request.getParameter("uni")));
+        try {
+            Student student = studentFacade.find(Long.parseLong(request.getParameter("student")));
+            Institution inst = facade.find(Long.parseLong(request.getParameter("stitution")));
+            Course course = courseFacade.find(Long.parseLong(request.getParameter("uni")));
 
-        student.setInstitution(inst);
-        student.setCourse(course);
-        studentFacade.edit(student);
-        
-        response.sendRedirect(request.getContextPath() + "/view/students?transfer=1");
+            student.setInstitution(inst);
+            student.setCourse(course);
+            studentFacade.edit(student);
+
+            response.sendRedirect(request.getContextPath() + "/view/students?transfer=1");
+        } catch (Exception x) {
+        }
     }
 
 }

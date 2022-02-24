@@ -20,8 +20,6 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "LogOutController", urlPatterns = {"/logout"})
 public class LogOutController extends HttpServlet {
 
-  
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -34,13 +32,13 @@ public class LogOutController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        if (request.getSession() != null) {
-            request.getSession().invalidate();
+        try {
+            if (request.getSession() != null) {
+                request.getSession().invalidate();
+            }
+            getServletContext().getRequestDispatcher("/WEB-INF/auth/index.jsp").forward(request, response);
+        } catch (Exception x) {
         }
-        getServletContext().getRequestDispatcher("/WEB-INF/auth/index.jsp").forward(request, response);
     }
-
-   
 
 }

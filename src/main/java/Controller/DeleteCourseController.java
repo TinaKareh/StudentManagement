@@ -26,10 +26,10 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "DeleteCourseController", urlPatterns = {"/delete/course"})
 public class DeleteCourseController extends HttpServlet {
 
- @EJB
- private CourseFacade courseFacade;
- @EJB
- private StudentFacade studentFacade;
+    @EJB
+    private CourseFacade courseFacade;
+    @EJB
+    private StudentFacade studentFacade;
 
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -42,15 +42,18 @@ public class DeleteCourseController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         Course course = courseFacade.find(Long.parseLong(request.getParameter("institutionId")));
-       
-       List<Student> student = studentFacade.getStudentsByCourse(course);
-       if(student == null){
-          courseFacade.remove(course);
-          response.sendRedirect(request.getContextPath() + "/view/course?deleted=1");
-       }else{
-           response.sendRedirect(request.getContextPath() + "/view/course?deleted=0");
-       }
+        try {
+            Course course = courseFacade.find(Long.parseLong(request.getParameter("institutionId")));
+
+            List<Student> student = studentFacade.getStudentsByCourse(course);
+            if (student == null) {
+                courseFacade.remove(course);
+                response.sendRedirect(request.getContextPath() + "/view/course?deleted=1");
+            } else {
+                response.sendRedirect(request.getContextPath() + "/view/course?deleted=0");
+            }
+        } catch (Exception x) {
+        }
     }
 
     /**
@@ -64,9 +67,7 @@ public class DeleteCourseController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-    }
 
-  
+    }
 
 }

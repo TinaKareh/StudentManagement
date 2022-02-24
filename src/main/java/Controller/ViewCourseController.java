@@ -41,18 +41,21 @@ public class ViewCourseController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpServletRequest httpReq = (HttpServletRequest) request;
-        HttpSession session = httpReq.getSession();
-        
-        AuthUser user = (AuthUser) session.getAttribute("user");
-        request.setAttribute("user", user);
-        
-        LOG.log(Level.INFO, String.valueOf(courseFacade.findAll().size()));
-        request.setAttribute("courses", courseFacade.findAll());
+        try {
+            HttpServletRequest httpReq = (HttpServletRequest) request;
+            HttpSession session = httpReq.getSession();
 
-        getServletContext()
-                .getRequestDispatcher("/WEB-INF/course/view_courses.jsp")
-                .forward(request, response);
+            AuthUser user = (AuthUser) session.getAttribute("user");
+            request.setAttribute("user", user);
+
+            LOG.log(Level.INFO, String.valueOf(courseFacade.findAll().size()));
+            request.setAttribute("courses", courseFacade.findAll());
+
+            getServletContext()
+                    .getRequestDispatcher("/WEB-INF/course/view_courses.jsp")
+                    .forward(request, response);
+        } catch (Exception x) {
+        }
     }
     private static final Logger LOG = Logger.getLogger(ViewCourseController.class.getName());
 
